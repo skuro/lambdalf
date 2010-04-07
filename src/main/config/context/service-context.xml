@@ -30,5 +30,7 @@
         <property name="sinceVersion" value="2.0" />
         <property name="appliesFromVersion" value="2.0" />
     </bean>
+
+    <bean id="swankServer" class="it.sk.alfresco.clojure.RunSwankServer" init-method="init" />
     
 </beans>
