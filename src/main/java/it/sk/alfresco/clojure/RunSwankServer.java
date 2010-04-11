@@ -22,10 +22,8 @@ public class RunSwankServer
                 {
                     clojure.lang.Compiler.load(
                             new java.io.StringReader(
-                                    "(require 'clojure.main)\n" +
-                                            "(require 'swank.swank)\n" +
-                                            "(clojure.main/with-bindings\n" +
-                                            "    (swank.swank/start-server \"nul\" :encoding \"utf-8\" :port 4005))"
+                                    "(require '(it.sk.alfresco core))\n" +
+                                            "(start-swank)"
                             ));
                 }
                 catch (Exception e)

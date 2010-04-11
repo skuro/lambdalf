@@ -1,0 +1,1 @@
+(require '(it.sk.alfresco core))

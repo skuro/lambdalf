@@ -32,5 +32,7 @@
     </bean>
 
     <bean id="swankServer" class="it.sk.alfresco.clojure.RunSwankServer" init-method="init" />
+
+    <bean id="ContextHelper" class="it.sk.alfresco.clojure.ContextHelper" />
     
 </beans>
