@@ -1,16 +1,7 @@
 package it.sk.alfresco.clojure;
 
-import java.io.BufferedReader;
-import java.io.StringReader;
-
-import clojure.lang.Compiler;
-
 /**
- * Created by IntelliJ IDEA.
- * User: sku
- * Date: Apr 7, 2010
- * Time: 12:20:19 AM
- * To change this template use File | Settings | File Templates.
+ * @author Carlo Sciolla
  */
 public class RunSwankServer
 {
