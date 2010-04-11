@@ -91,7 +91,7 @@
               default in target/alfresco.log
           -->
         <alfresco.data.location>${project.basedir}/alf_data_jetty</alfresco.data.location>
-        <alfresco.db.name>alf_jetty</alfresco.db.name>
+        <alfresco.db.name>alf_clj</alfresco.db.name>
         <alfresco.db.username>alfresco</alfresco.db.username>
         <alfresco.db.password>alfresco</alfresco.db.password>
         <webapp.log.level>error</webapp.log.level>
@@ -146,6 +146,12 @@
             <artifactId>swank-clojure</artifactId>
             <version>1.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
+        </dependency>
         <!-- Don't add here amp dependencies as it will break amp packaging -->
     </dependencies>
     <!--
@@ -154,6 +160,11 @@
      -->
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.theoryinpractise</groupId>
+                <artifactId>clojure-maven-plugin</artifactId>
+                <version>1.3.1</version>
+            </plugin>
             <plugin>
                 <artifactId>maven-nosnapshot-plugin</artifactId>
                 <groupId>com.sourcesense.maven</groupId>
@@ -229,6 +240,12 @@
                 <excludes>
                     <exclude>**README-*</exclude>
                 </excludes>
+            </resource>
+
+            <!--
+                Clojure stuff -->
+            <resource>
+                <directory>src/main/clojure</directory>
             </resource>
         </resources>
     </build>
