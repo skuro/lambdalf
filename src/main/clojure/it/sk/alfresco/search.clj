@@ -4,6 +4,7 @@
 
 (defonce *search-service* (.getSearchService c/*alfresco-services*))
 
+; TODO: broken, what's bind actually?
 (defn query
 	"Search in the Alfresco repository"
 	([q]

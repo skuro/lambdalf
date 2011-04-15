@@ -1,4 +1,4 @@
-(ns it.sk.alfresco
+(ns it.sk.alfresco.core
     (:require (swank.swank)
               (clojure.main))
     (:import (it.sk.alfresco.clojure ContextHelper)
@@ -6,10 +6,6 @@
 
 (defonce *alfresco-services*
     (. (ContextHelper/getApplicationContext) getBean ServiceRegistry/SERVICE_REGISTRY))
-
-;(defn start-swank []
-;    (clojure.main/with-bindings
-;        (swank.swank/create-server "/dev/null" :port 4005 :dont-close true)))
 
 (defn start-swank []
   (clojure.main/with-bindings
