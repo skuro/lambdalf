@@ -4,7 +4,7 @@
     (:import (it.sk.alfresco.clojure ContextHelper)
              (org.alfresco.service ServiceRegistry)))
 
-(defonce *services*
+(defonce *alfresco-services*
     (. (ContextHelper/getApplicationContext) getBean ServiceRegistry/SERVICE_REGISTRY))
 
 ;(defn start-swank []

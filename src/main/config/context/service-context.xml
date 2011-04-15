@@ -18,21 +18,16 @@
 	
 -->
 <beans>
-    
-    <!-- A simple class that is initialized by Spring -->
-    <bean id="${groupId}.${artifactId}.exampleBean" class="org.alfresco.demoamp.Demo" init-method="init" />
-    
-    <!-- A simple module component that will be executed once -->
-    <bean id="${groupId}.${artifactId}.exampleComponent" class="org.alfresco.demoamp.DemoComponent" parent="module.baseComponent" >
-        <property name="moduleId" value="${pom.groupId}.${pom.artifactId}" />  <!-- See module.properties -->
-        <property name="name" value="exampleComponent" />
-        <property name="description" value="A demonstration component" />
-        <property name="sinceVersion" value="2.0" />
-        <property name="appliesFromVersion" value="2.0" />
-    </bean>
 
-    <bean id="swankServer" class="it.sk.alfresco.clojure.RunSwankServer" init-method="init" />
+	<bean id="swankServer" class="it.sk.alfresco.clojure.RunSwankServer" init-method="init"/>
 
-    <bean id="ContextHelper" class="it.sk.alfresco.clojure.ContextHelper" />
-    
+	<bean id="webframework.registrar.clojurescriptprocessor"
+		  class="org.springframework.extensions.webscripts.ScriptProcessorRegistrar" init-method="init">
+		<property name="factory">
+			<bean class="org.springframework.extensions.webscripts.processor.ClojureScriptProcessorFactory"/>
+		</property>
+	</bean>
+
+	<bean id="ContextHelper" class="it.sk.alfresco.clojure.ContextHelper"/>
+
 </beans>
