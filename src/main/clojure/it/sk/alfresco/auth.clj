@@ -1,8 +1,12 @@
-(ns it.sk.alfresco.auth)
+(ns it.sk.alfresco.auth
+  (:import [org.alfresco.repo.security.authentication
+            AuthenticationUtil
+            AuthenticationUtil$RunAsWork]))
 
-; TODO: broken
 (defmacro run-as
   "Runs the provided form while impersonating the given user"
   [user f]
-  (let [work (reify AuthenticationUtil$RunAsWork (doWork f))]
-    `(.runAs AuthenticationUtil ~work ~user)))
+  `(let [work# (reify AuthenticationUtil$RunAsWork
+                     (~'doWork [~'this]
+                               ~f))]
+     (AuthenticationUtil/runAs work# ~user)))

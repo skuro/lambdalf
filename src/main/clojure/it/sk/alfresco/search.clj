@@ -1,14 +1,18 @@
 (ns it.sk.alfresco.search
-	(:require [it.sk.alfresco.core :as c])
-	(:import [it.sk.alfresco.nodes Node SimpleNode]))
+
+  (:require [it.sk.alfresco.core :as c]
+            [it.sk.alfresco.nodes :as n])
+
+  (:import [org.alfresco.service.cmr.repository StoreRef]
+           [org.alfresco.service.cmr.search SearchService]))
 
 (defonce *search-service* (.getSearchService c/*alfresco-services*))
 
-; TODO: broken, what's bind actually?
 (defn query
 	"Search in the Alfresco repository"
 	([q]
-		(query StoreRef/STORE_REF_WORKSPACE_SPACESSTORE StoreRef/LANGUAGE_LUCENE q))
+           (query StoreRef/STORE_REF_WORKSPACE_SPACESSTORE
+                  SearchService/LANGUAGE_LUCENE q))
 	([store lang q]
-		(with-open [rs (.query *search-service* store lang q)]
-			(doall (map #(bind (SimpleNode.) %) (.getNoderefs rs))))))
+           (with-open [rs (.query *search-service* store lang q)]
+             (doall (map #(n/bind (n/SimpleNode.) %) (.getNoderefs rs))))))

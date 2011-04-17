@@ -25,6 +25,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.alfresco:alfresco-repository:enterprise:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.alfresco:alfresco-data-model:enterprise:3.4.0" level="project" />
     <orderEntry type="library" name="Maven: swank-clojure:swank-clojure:1.2.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.6" level="project" />
     <orderEntry type="module" module-name="spring-webscripts-addon-clojure" />

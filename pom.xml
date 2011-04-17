@@ -35,20 +35,16 @@
 	<description>Test AMP project</description>
 	<repositories>
 		<repository>
+			<id>alfresco-public</id>
+			<url>http://maven.alfresco.com/nexus/content/groups/public</url>
+		</repository>
+		<repository>
 			<id>alfresco-public-snapshots</id>
 			<url>http://maven.alfresco.com/nexus/content/groups/public-snapshots</url>
 			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>daily</updatePolicy>
 			</snapshots>
-		</repository>
-		<repository>
-			<id>alfresco-public</id>
-			<url>http://maven.alfresco.com/nexus/content/groups/public</url>
-		</repository>
-		<repository>
-			<id>clojars.org</id>
-			<url>http://clojars.org/repo</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
@@ -58,7 +54,7 @@
 		</pluginRepository>
 		<pluginRepository>
 			<id>alfresco-public-snapshots</id>
-			<url>http://repository.sourcesense.com/nexus/content/groups/public-snapshots</url>
+			<url>http://maven.alfresco.com/nexus/content/groups/public-snapshots</url>
 			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>daily</updatePolicy>
@@ -117,6 +113,13 @@
 			<classifier>${alfresco.classifier}</classifier>
 		</dependency>
 		<dependency>
+			<groupId>org.alfresco</groupId>
+			<artifactId>alfresco-data-model</artifactId>
+			<version>${alfresco.version}</version>
+			<scope>provided</scope>
+			<classifier>${alfresco.classifier}</classifier>
+		</dependency>
+		<dependency>
 			<groupId>swank-clojure</groupId>
 			<artifactId>swank-clojure</artifactId>
 			<version>1.2.1</version>
@@ -148,7 +151,7 @@
 			<plugin>
 				<artifactId>maven-nosnapshot-plugin</artifactId>
 				<groupId>com.sourcesense.maven</groupId>
-				<version>0.0.5-SNAPSHOT</version>
+				<version>0.0.6</version>
 				<executions>
 					<execution>
 						<id>default</id>
@@ -187,7 +190,7 @@
 			<plugin>
 				<groupId>org.alfresco.maven.plugin</groupId>
 				<artifactId>maven-amp-plugin</artifactId>
-				<version>3.0.1-SNAPSHOT</version>
+				<version>3.0.2</version>
 				<extensions>true</extensions>
 				<configuration>
 					<archive>
@@ -254,7 +257,7 @@
 								</goals>
 								<configuration>
 									<includeTypes>amp</includeTypes>
-									<outputDirectory>${build.directory}/${webapp.name}</outputDirectory>
+									<outputDirectory>${project.build.directory}/${webapp.name}</outputDirectory>
 									<excludes>META*</excludes>
 								</configuration>
 							</execution>
@@ -268,7 +271,7 @@
 							<dependency>
 								<groupId>org.alfresco.maven.plugin</groupId>
 								<artifactId>maven-amp-plugin</artifactId>
-								<version>3.0.1-SNAPSHOT</version>
+								<version>3.0.2</version>
 							</dependency>
 						</dependencies>
 					</plugin>
@@ -295,14 +298,14 @@
 																   Don't remove the following line otherwise WAR and AMP builds
 																   will be done in the same folder, with unexpected results
 															   -->
-							<webappDirectory>${build.directory}/${webapp.name}</webappDirectory>
+							<webappDirectory>${project.build.directory}/${webapp.name}</webappDirectory>
 							<archive>
 								<addMavenDescriptor>false</addMavenDescriptor>
 							</archive>
 							<warSourceExcludes>licenses/**</warSourceExcludes>
 							<webResources>
 								<resource>
-									<directory>${build.testOutputDirectory}</directory>
+									<directory>${project.build.testOutputDirectory}</directory>
 									<targetPath>WEB-INF/classes</targetPath>
 									<filtering>true</filtering>
 									<includes>
@@ -329,7 +332,7 @@
 							<dependency>
 								<groupId>org.alfresco.maven.plugin</groupId>
 								<artifactId>maven-amp-plugin</artifactId>
-								<version>3.0.1-SNAPSHOT</version>
+								<version>3.0.2</version>
 							</dependency>
 						</dependencies>
 					</plugin>
@@ -347,7 +350,7 @@
 								</goals>
 								<configuration>
 									<contextPath>/${webapp.name}</contextPath>
-									<webApp>${pom.build.directory}/${webapp.name}</webApp>
+									<webApp>${project.build.directory}/${webapp.name}</webApp>
 									<scanIntervalSeconds>10</scanIntervalSeconds>
 									<connectors>
 										<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">

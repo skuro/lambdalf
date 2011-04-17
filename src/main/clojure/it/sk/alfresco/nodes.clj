@@ -1,19 +1,17 @@
 (ns it.sk.alfresco.nodes
-	(:require [it.sk.alfresco.core :as c]))
+  (:require [it.sk.alfresco.core :as c]
+            [it.sk.alfresco.model :as m]))
 
 (defonce *node-service* (.getNodeService c/*alfresco-services*))
 
 (defprotocol Node
-	(noderef [this] "Gives a NodeRef out of an entity like e.g. a clojure map")
-	(props [this] "Returns a map of properties for the given entity")
-	(bind [this noderef] "Used to provide a more clojure friendly entity representing an Alfresco node"))
+  "Clojure friendly interface for an Alfresco node"
+  (aspect? [this aspect] "True if aspect is applied to the the current node")
 
-(deftype SimpleNode
-	[propmap aspects ref]
-	Node
-	(noderef [this] ref)
-	(props [this] (.propmap this))
-	(bind
-		[this noderef]
-		(do (set! propmap (into {} (.getProperties *node-service* noderef))
-			(set! aspects (into #{} (.getAspects *node-service* noderef)))))))
+  ;; TODO: access binary content)
+
+(defrecord SimpleNode
+  [ref props aspects]
+
+  Node
+  (aspect? [_ aspect] (.hasAspect *node-service* ref (m/qname aspect))))
