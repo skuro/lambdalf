@@ -1,7 +1,5 @@
 (ns it.sk.alfresco.model
-  
   (:require [it.sk.alfresco.core :as c])
-  
   (:import [org.alfresco.service.namespace QName]))
 
 (defonce *namespace-service* (.getNamespaceService c/*alfresco-services*))

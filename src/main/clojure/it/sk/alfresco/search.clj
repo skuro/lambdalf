@@ -4,7 +4,8 @@
             [it.sk.alfresco.nodes :as n])
 
   (:import [org.alfresco.service.cmr.repository StoreRef]
-           [org.alfresco.service.cmr.search SearchService]))
+           [org.alfresco.service.cmr.search SearchService]
+           [it.sk.alfresco.nodes SimpleNode]))
 
 (defonce *search-service* (.getSearchService c/*alfresco-services*))
 
@@ -15,4 +16,4 @@
                   SearchService/LANGUAGE_LUCENE q))
 	([store lang q]
            (with-open [rs (.query *search-service* store lang q)]
-             (doall (map #(n/bind (n/SimpleNode.) %) (.getNoderefs rs))))))
+             (doall (map #(n/SimpleNode. %) (.getNodeRefs rs))))))
