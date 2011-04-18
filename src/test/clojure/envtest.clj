@@ -1,1 +1,1 @@
-(require '(it.sk.alfresco core))
+(require '(alfresco core))
