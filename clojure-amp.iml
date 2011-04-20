@@ -8,6 +8,12 @@
           <file>file://$MODULE_DIR$/src/main/config/module-context.xml</file>
           <file>file://$MODULE_DIR$/src/test/resources/alfresco/extension/custom-repository-context.xml</file>
         </fileset>
+        <fileset id="fileset2" name="Surf fileset" removed="false">
+          <file>file://$MODULE_DIR$/../spring-webscripts-addon-clojure/src/main/resources/org/springframework/extensions/surf/clojure-surf-context.xml</file>
+          <file>file://$MODULE_DIR$/../spring-webscripts-addon-clojure/src/main/resources/org/springframework/extensions/webscripts/clojure-webscripts-context.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/springframework/extensions/surf/spring-webscripts/1.0.0.M3/spring-webscripts-1.0.0.M3.jar!/org/springframework/extensions/webscripts/spring-webscripts-application-context.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/springframework/extensions/surf/spring-webscripts/1.0.0.M3/spring-webscripts-1.0.0.M3.jar!/org/springframework/extensions/webscripts/spring-webscripts-mvc-context.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
@@ -15,10 +21,10 @@
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/config" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/clojure" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
@@ -29,6 +35,7 @@
     <orderEntry type="library" name="Maven: swank-clojure:swank-clojure:1.2.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.6" level="project" />
     <orderEntry type="module" module-name="spring-webscripts-addon-clojure" />
+    <orderEntry type="library" name="Maven: org.springframework.extensions.surf:spring-surf:1.0.0.M3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.extensions.surf:spring-webscripts:1.0.0.M3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.extensions.surf:spring-surf-core-configservice:1.0.0.M3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.extensions.surf:spring-surf-core:1.0.0.M3" level="project" />

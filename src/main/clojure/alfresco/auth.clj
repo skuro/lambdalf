@@ -3,6 +3,8 @@
             AuthenticationUtil
             AuthenticationUtil$RunAsWork]))
 
+(defonce *admin* (AuthenticationUtil/getAdminUserName))
+
 (defmacro run-as
   "Runs the provided form while impersonating the given user"
   [user f]
@@ -10,6 +12,11 @@
                      (~'doWork [~'this]
                                ~f))]
      (AuthenticationUtil/runAs work# ~user)))
+
+(defmacro as-admin
+  "Runs the provided form as admin"
+  [f]
+  `(run-as *admin* ~f))
 
 (defn whoami
   "Returns the currently valid user name"
