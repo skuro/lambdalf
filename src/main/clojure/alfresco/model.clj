@@ -4,6 +4,8 @@
 
 (defonce *namespace-service* (.getNamespaceService c/*alfresco-services*))
 
+(defonce *dictionary-service* (.getDictionaryService c/*alfresco-services*))
+
 ;; TODO: there are better ways, for sure
 (defn- qname-dispatch
   [from]
@@ -34,6 +36,11 @@
 (defmethod qname ::from-keyword [k]
            (qname (name k)))
 
+(defn qname-str
+  "Translates a QName into a human readable prefixed string"
+  [^QName q]
+  (.toPrefixString q *namespace-service*))
+
 (defn in?
   "True if the qname is within ns. ns can be either short or long format."
   [ns ^QName qname]
@@ -42,3 +49,7 @@
      (= qname-ns ns)
      (= qname-ns (.getNamespaceURI *namespace-service* ns)))))
 
+(defn qname-isa?
+  "True if child is in the inheritance tree of parent"
+  [child parent]
+  (.isSubClass *dictionary-service* (qname child) (qname parent)))

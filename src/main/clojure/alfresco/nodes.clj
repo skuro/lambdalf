@@ -20,8 +20,10 @@
 
   Node
   (aspect? [_ aspect] (.hasAspect *node-service* ref (m/qname aspect)))
-  (properties [_] (into {} (.getProperties *node-service* ref)))
-  (aspects [_] (into #{} (doall (map #(SimpleNode. %) (.getAspects *node-service* ref)))))
+  (properties [_] (into {} (let [prop-map (.getProperties *node-service* ref)]
+                             (zipmap (map m/qname-str (keys prop-map))
+                                     (vals prop-map)))))
+  (aspects [_] (into #{} (doall (map m/qname-str (.getAspects *node-service* ref)))))
   (dir? [_] (= (m/qname "cm:folder" (.getType *node-service* ref)))))
 
 (defonce *company-home*
@@ -38,7 +40,7 @@
              It must at least contain an entry for cm:name
    - type : new node type
    It returns a map describing the new ChildAssociationRef"
-  [{:keys [ parent assoc-type assoc props type]}]
+  [{:keys [parent assoc-type assoc props type]}]
   (let [assoc-qname (if assoc-type
                       (m/qname assoc-type)
                       (m/qname "cm:contains"))
@@ -102,19 +104,21 @@
       (clojure.pprint/pprint as-map))))
   Prints"
   [& varargs]
-  (apply conj {} (for [[k v] (partition 2 varargs)]
-                   [k v])))
+  (apply conj {} (for [[k v] (apply partition 2 varargs)]
+     [k v])))
 
 (defn set-properties!
    "Sets the given metadata properties onto a node"
    ([node prop-map]
-      (.setProperties *node-service* node prop-map))
+      (let [qnamed-map (zipmap (map m/qname (keys prop-map))
+                               (vals prop-map))]
+        (.setProperties *node-service* node qnamed-map)))
    ([node prop val]
-      (set-prop! node {prop val}))
+      (set-properties! node {(m/qname prop) val}))
    ([node prop val & prop-defs]
-      {:pre [(even? prop-defs)]}
-      (let [prop-map (defs2map prop-defs)]
-        (set-prop! node prop-map))))
+      {:pre [(even? (count prop-defs))]}
+      (let [prop-map (assoc (defs2map prop-defs) prop val)]
+        (set-properties! node prop-map))))
 
 (defn type-qname
   "Returns the qname of the provided node's type"
