@@ -13,8 +13,10 @@
   (j2c [this] "Creates a Clojure representation of the given object")
   (c2j [this] "Creates a Java representation of the given clojure entity"))
 
-(defonce *alfresco-services*
-  (. (ContextHelper/getApplicationContext) getBean ServiceRegistry/SERVICE_REGISTRY))
+(defn get-bean
+  "Yields the instance of a spring managed bean"
+  [bean]
+  (. (ContextHelper/getApplicationContext) getBean bean))
 
-(defmacro behave-on
-  "Registers a new behavior to react upon the provided ")
+(defonce *alfresco-services*
+  (get-bean  ServiceRegistry/SERVICE_REGISTRY))
