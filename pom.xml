@@ -73,7 +73,7 @@
 					  slash, e.g. '/var/log/alfresco/' ) | | Jetty embedded run logs by
 					  default in target/alfresco.log
 				  -->
-		<alfresco.data.location>${project.basedir}/lambdalf_jetty</alfresco.data.location>
+		<alfresco.data.location>/var/alfresco/lambdalf</alfresco.data.location>
 		<alfresco.db.name>lambdalf</alfresco.db.name>
 		<alfresco.db.username>alfresco</alfresco.db.username>
 		<alfresco.db.password>alfresco</alfresco.db.password>
