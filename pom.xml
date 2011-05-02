@@ -122,6 +122,18 @@
 			<artifactId>spring-webscripts-addon-clojure</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+            <groupId>org.springframework.extensions.surf</groupId>
+            <artifactId>spring-surf</artifactId>
+            <version>1.0.0.CI-SNAPSHOT</version>
+			<scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.extensions.surf</groupId>
+            <artifactId>spring-webscripts</artifactId>
+            <version>1.0.0.CI-SNAPSHOT</version>
+			<scope>provided</scope>
+        </dependency>
 		<!-- Don't add here amp dependencies as it will break amp packaging -->
 	</dependencies>
 	<!--
