@@ -32,7 +32,7 @@
   (aspect? [this aspect] "True if aspect is applied to the the current ")
   (properties [this] "Provides all the metadata fields currently held by this node")
   (property [this prop] "Retrieves a property from a node")
-  (set-properties! [this prop val & prop-defs] "Set properties on a node")
+  (set-properties! [this & prop-defs] "Set properties on a node")
   (aspects [this] "Provides all the aspect QNames of this node")
   (dir? [this] "True if the node is of type or subtype of cm:folder ")
   (create-child-assoc [this propmap] "Creates a new node. Accepts a map containing the following parameters:
@@ -124,12 +124,12 @@
 
 
   (set-properties!
-   [node prop val & prop-defs]
+   [node & prop-defs]
    {:pre [(or (nil? prop-defs) (even? (count prop-defs)))]}
-   (let [prop-map (assoc (defs2map prop-defs) prop val)
+   (let [prop-map (defs2map prop-defs)
          qnamed-map (zipmap (map m/qname (keys prop-map))
                             (vals prop-map))]
-     (.setProperties *node-service* node qnamed-map)))
+     (.setProperties *node-service* (c/c2j node) qnamed-map)))
 
   (type-qname
     [node]

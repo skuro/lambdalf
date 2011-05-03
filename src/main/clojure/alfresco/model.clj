@@ -11,10 +11,9 @@
   [from]
   (cond
    (= QName (class from)) ::identity
-   (= String (class from)) (let [prefix (aget (QName/splitPrefixedQName from) 0)]
-                             (if (> (count prefix) 0)
-                               ::str-shortname ;; something like cm:content
-                               ::create)) ;; (hopefully) like {http://my.model}content
+   (= String (class from)) (if (= "{" (first from))
+                             ::create ;; (hopefully) like {http://my.model}content
+                             ::str-shortname) ;; something like cm:content
    (keyword? from) ::from-keyword
    :else ::create)) ;; this will most likely always fail
 
