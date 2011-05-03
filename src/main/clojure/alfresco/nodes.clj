@@ -111,7 +111,8 @@
    [node & aspect-defs]
    {:pre [(even? (count aspect-defs))]}
    (for [[aspect props] (partition 2 aspect-defs)]
-     (.addAspect *node-service* (c/c2j node) (m/qname aspect) props)))
+     (.addAspect *node-service* (c/c2j node) (m/qname aspect) props))
+   true)
 
   (del-aspect!
    [node aspect]
