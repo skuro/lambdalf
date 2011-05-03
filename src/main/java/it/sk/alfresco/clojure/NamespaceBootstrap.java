@@ -2,6 +2,7 @@ package it.sk.alfresco.clojure;
 
 import clojure.lang.IFn;
 import clojure.lang.Namespace;
+import clojure.lang.RT;
 import clojure.lang.Symbol;
 
 /**
@@ -22,25 +23,31 @@ public class NamespaceBootstrap {
 	private String clojureInit;
 
 	/**
+	 * If this bean was initialized
+	 */
+	private boolean inited = false;
+
+	/**
 	 * Allows for the named namespace to be bootstrapped as a Spring bean
 	 *
 	 * @return The started up {@link clojure.lang.Namespace}
 	 */
-	public Object init() {
-		Namespace ns = Namespace.findOrCreate(Symbol.create(this.ns));
-
-		if (this.clojureInit != null) {
-			Object o = ns.getMapping(Symbol.create(this.ns, this.clojureInit));
-			if (o != null && o instanceof IFn) {
-				try {
+	public void init() {
+		Namespace ns = null;
+		try {
+			RT.loadResourceScript(String.format("%s.clj", this.ns));
+			if (this.clojureInit != null) {
+				ns = Namespace.findOrCreate(Symbol.create(this.ns));
+				Object o = ns.getMapping(Symbol.create(this.ns, this.clojureInit));
+				if (o != null && o instanceof IFn) {
 					((IFn) o).invoke();
-				} catch (Exception e) {
-					e.printStackTrace();
+					this.inited = true;
+
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 		}
-
-		return ns;
 	}
 
 	public void setNs(String ns) {
@@ -49,5 +56,9 @@ public class NamespaceBootstrap {
 
 	public void setClojureInit(String clojureInit) {
 		this.clojureInit = clojureInit;
+	}
+
+	public boolean isInited() {
+		return inited;
 	}
 }
