@@ -46,7 +46,7 @@
   (children [this] "Returns a seq of the node direct children")
   (parent [this] "Gives the primary parent of node")
   (delete! [this] "Deletes a node")
-  (add-aspect! [this & aspect-defs] "Adds aspects to a node. The aspects are provide as aspect-qname aspect-props couples")
+  (add-aspect! [this aspect props] "Adds an aspect to a node.")
   (del-aspect! [this aspect] "Removes an aspect from a node")
   (type-qname [this] "Returns the qname of the provided node's type")
   (set-type! [this type] "Sets the provided type onto the node. Yields nil"))
@@ -108,11 +108,12 @@
    (.deleteNode *node-service* (c/c2j node)))
 
   (add-aspect!
-   [node & aspect-defs]
-   {:pre [(even? (count aspect-defs))]}
-   (for [[aspect props] (partition 2 aspect-defs)]
-     (.addAspect *node-service* (c/c2j node) (m/qname aspect) props))
-   true)
+   [node aspect props]
+   (.addAspect *node-service*
+               (c/c2j node)
+               (m/qname aspect)
+               (zipmap (map m/qname (keys props))
+                       (vals props))))  
 
   (del-aspect!
    [node aspect]
