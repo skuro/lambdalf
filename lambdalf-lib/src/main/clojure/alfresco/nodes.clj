@@ -76,25 +76,26 @@
   
   (dir? [node] (= (m/qname "cm:folder" (.getType (node-service) (c/c2j node)))))
 
-  (create-child-assoc [node {:keys [assoc-type assoc props type]}]
-    (let [assoc-qname (if assoc-type
-                        (m/qname assoc-type)
-                        (m/qname "cm:contains"))
-          assoc-name (if assoc
-                       (m/qname assoc)
-                       (m/qname (str "cm:" (props ContentModel/PROP_NAME))))
-          ^ChildAssociationRef assoc-ref (.createNode (node-service)
-                                                      (c/c2j node)
-                                                      assoc-qname
-                                                      assoc-name
-                                                      type
-                                                      props)]
-  
+  (create-child-assoc
+   [node {:keys [assoc-type assoc props type]}]
+   (let [assoc-qname (if assoc-type
+                       (m/qname assoc-type)
+                       (m/qname "cm:contains"))
+         assoc-name (if assoc
+                      (m/qname assoc)
+                      (m/qname (str "cm:" (props ContentModel/PROP_NAME))))
+         ^ChildAssociationRef assoc-ref (.createNode (node-service)
+                                                     (c/c2j node)
+                                                     assoc-qname
+                                                     assoc-name
+                                                     (m/qname type)
+                                                     props)]
+     
       {:type assoc-qname
        :name assoc-name
        :parent (c/j2c node)
        :child (c/j2c (.getChildRef assoc-ref))}))
-
+  
   (children
    [node]
    (into #{} (doall
@@ -131,9 +132,11 @@
   (set-properties!
    [node & prop-defs]
    {:pre [(or (nil? prop-defs) (even? (count prop-defs)))]}
-   (let [prop-map (defs2map prop-defs)
+   (let [current-props (properties node)
+         prop-map (merge current-props (defs2map prop-defs))
          qnamed-map (zipmap (map m/qname (keys prop-map))
                             (vals prop-map))]
+     
      (.setProperties (node-service) (c/c2j node) qnamed-map)))
 
   (type-qname
