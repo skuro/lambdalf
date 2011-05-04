@@ -24,11 +24,25 @@
 		</license>
 	</licenses>
 
+	<developers>
+		<developer>
+			<id>skuro</id>
+			<name>Carlo Sciolla</name>
+			<email>skuro@skuro.tk</email>
+			<url>http://skuro.tk</url>
+		</developer>
+	</developers>
+
 	<scm>
 		<connection>scm:git:git://github.com/skuro/lambdalf.git</connection>
 		<developerConnection>scm:git:git://github.com/skuro/lambdalf.git</developerConnection>
 		<url>http://github.com/skuro/lambdalf</url>
 	</scm>
+
+	<issueManagement>
+		<system>ScrumDo</system>
+		<url>http://www.scrumdo.com/projects/project/lambdalf</url>
+	</issueManagement>
 
 	<modules>
 		<module>lambdalf</module>
