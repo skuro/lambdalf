@@ -6,30 +6,42 @@
 	<artifactId>lambdalf-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>[parent] Lambdalf -- Clojure support for Alfresco</name>
-	<!--
-			 An Alfresco version number must be of the form 1.2.3.4. Using
-			 1.0-SNAPSHOT as the AMP version will create an exception. See
-			 http://wiki.alfresco.com/wiki/Developing_an_Alfresco_Module: "The
-			 version number must be made up of numeric values separated by dots.
-			 For example '2.1.56' is a valid version number, '2.3.4a' is not. " In
-			 order to be able to use Maven snapshots we cannot use the <version/>
-			 below as the AMP module version. Instead we use the
-			 buildnumber-maven-plugin. This requires a scm connection.
-		 -->
 	<version>1.0-SNAPSHOT</version>
 	<description>
 		Parent project for Lambdalf -- Clojure support for Alfresco
 	</description>
+
+	<organization>
+		<name>Carlo Sciolla</name>
+		<url>http://skuro.tk</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>Apache License 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:git://github.com/skuro/lambdalf.git</connection>
+		<developerConnection>scm:git:git://github.com/skuro/lambdalf.git</developerConnection>
+		<url>http://github.com/skuro/lambdalf</url>
+	</scm>
+
 	<modules>
 		<module>lambdalf</module>
 		<module>lambdalf-lib</module>
 	</modules>
+
 	<properties>
 		<alfresco.version>3.4.0</alfresco.version>
 		<alfresco.classifier>enterprise</alfresco.classifier>
 		<spring.version>3.0.0.RELEASE</spring.version>
 		<clojure.version>1.2.0</clojure.version>
 	</properties>
+
 	<repositories>
 		<repository>
 			<id>alfresco-public</id>
@@ -44,6 +56,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>alfresco-public</id>
@@ -58,6 +71,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -95,4 +109,5 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 </project>
