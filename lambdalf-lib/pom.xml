@@ -22,6 +22,55 @@
 				<directory>src/main/clojure</directory>
 			</resource>
 		</resources>
+		<plugins>
+			<plugin>
+				<groupId>com.theoryinpractise</groupId>
+				<artifactId>clojure-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<namespaces>
+								<namespace>alfresco.interop</namespace>
+							</namespaces>
+							<compileDeclaredNamespaceOnly>true</compileDeclaredNamespaceOnly>
+							<outputDirectory>${project.basedir}/clj</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4.3</version>
+				<executions>
+					<execution>
+						<id>clj-genclass</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>clj/alfresco/interop</directory>
+									<includes>
+										<include>**/*</include>
+									</includes>
+								</resource>
+							</resources>
+							<outputDirectory>${project.build.directory}/classes/alfresco/interop</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 	<dependencies>
 		<dependency>
@@ -42,9 +91,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco</groupId>
+			<artifactId>alfresco-remote-api</artifactId>
+			<scope>provided</scope>
+			<classifier>${alfresco.classifier}</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.alfresco</groupId>
 			<artifactId>alfresco-repository</artifactId>
 			<scope>provided</scope>
 			<classifier>${alfresco.classifier}</classifier>
+		</dependency>
+		<dependency>
+			<groupId>acegisecurity</groupId>
+			<artifactId>acegi-security</artifactId>
+			<version>0.8.2</version>
+			<classifier>alfresco</classifier>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -53,6 +115,17 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.extensions.surf</groupId>
+			<artifactId>spring-webscripts</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>truezip</groupId>
+			<artifactId>truezip</artifactId>
+			<version>3.4.0</version>
+			<classifier>alfresco</classifier>
 		</dependency>
 	</dependencies>
 </project>

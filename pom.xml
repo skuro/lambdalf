@@ -53,6 +53,7 @@
 		<alfresco.version>3.4.0</alfresco.version>
 		<alfresco.classifier>enterprise</alfresco.classifier>
 		<spring.version>3.0.0.RELEASE</spring.version>
+		<spring.surf.version>1.0.0.CI-SNAPSHOT</spring.surf.version>
 		<clojure.version>1.2.0</clojure.version>
 	</properties>
 
@@ -69,6 +70,21 @@
 				<updatePolicy>daily</updatePolicy>
 			</snapshots>
 		</repository>
+		<!-- Spring surf artifacts -->
+		<!--<repository>-->
+		<!--<id>surf-milestone</id>-->
+		<!--<name>Spring Surf s3 repository</name>-->
+		<!--<url>https://extensions.springframework.org.s3.amazonaws.com/milestone</url>-->
+		<!--</repository>-->
+		<!--<repository>-->
+		<!--<id>surf-snapshots</id>-->
+		<!--<name>Spring Surf s3 repository</name>-->
+		<!--<url>https://extensions.springframework.org.s3.amazonaws.com/snapshot</url>-->
+		<!--<snapshots>-->
+		<!--<enabled>true</enabled>-->
+		<!--<updatePolicy>daily</updatePolicy>-->
+		<!--</snapshots>-->
+		<!--</repository>-->
 	</repositories>
 
 	<pluginRepositories>
@@ -107,6 +123,12 @@
 			</dependency>
 			<dependency>
 				<groupId>org.alfresco</groupId>
+				<artifactId>alfresco-remote-api</artifactId>
+				<version>${alfresco.version}</version>
+				<classifier>${alfresco.classifier}</classifier>
+			</dependency>
+			<dependency>
+				<groupId>org.alfresco</groupId>
 				<artifactId>alfresco-repository</artifactId>
 				<version>${alfresco.version}</version>
 				<classifier>${alfresco.classifier}</classifier>
@@ -120,6 +142,12 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-beans</artifactId>
 				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.extensions.surf</groupId>
+				<artifactId>spring-webscripts</artifactId>
+				<version>${spring.surf.version}</version>
+				<scope>provided</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

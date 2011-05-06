@@ -6,11 +6,6 @@
 	<bean id="webscripts.clj.scriptprocessor.factory"
 		  class="org.springframework.extensions.webscripts.processor.ClojureScriptProcessorFactory" />
 
-	<bean id="webscripts.clj.scriptprocessor" class="org.springframework.extensions.webscripts.processor.ClojureScriptProcessor">
-		<property name="searchPath" ref="webscripts.searchpath"/>
-		<property name="scriptProcessorRegistry" ref="webscripts.repo.registry.scriptprocessor" />
-	</bean>
-
 	<bean class="org.springframework.extensions.webscripts.ScriptProcessorRegistrar" init-method="init">
       <property name="registry" ref="webscripts.repo.registry.scriptprocessor" />
       <property name="factory" ref="webscripts.clj.scriptprocessor.factory" />
