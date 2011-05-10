@@ -39,7 +39,6 @@
   (aspects [this] "Provides all the aspect QNames of this node")
   (dir? [this] "True if the node is of type or subtype of cm:folder ")
   (create-child-assoc [this propmap] "Creates a new node. Accepts a map containing the following parameters:
-   - parent : parent nodeRef
    - assoc-type : OPTIONAL - the association type. Defaults to cm:contains
    - assoc : OPTIONAL - the association name. Defaults to the new node cm:name
    - props : QName -> Serializable map of initial node metadata.
