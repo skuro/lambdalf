@@ -54,7 +54,7 @@
 		<alfresco.classifier>enterprise</alfresco.classifier>
 		<spring.version>3.0.0.RELEASE</spring.version>
 		<spring.surf.version>1.0.0.CI-SNAPSHOT</spring.surf.version>
-		<clojure.version>1.2.0</clojure.version>
+		<clojure.version>1.2.1</clojure.version>
 	</properties>
 
 	<repositories>
