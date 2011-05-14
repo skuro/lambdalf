@@ -4,6 +4,7 @@
   (:require [alfresco.auth :as a]))
 
 ; Allow content to be streamed back bypassing permission checks
+; TODO: delete?
 (gen-class :name alfresco.interop.StreamContent
            :prefix "stream-"
            :extends org.alfresco.repo.web.scripts.content.StreamContent
