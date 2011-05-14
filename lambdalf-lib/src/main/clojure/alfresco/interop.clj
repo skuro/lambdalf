@@ -10,5 +10,5 @@
            :exposes-methods {execute executeSuper})
 
 (defn stream-execute
-   [this ^WebScriptRequest req ^WebScriptResponse res]
-   (a/as-admin (.executeSuper this req res)))
+  [this ^WebScriptRequest req ^WebScriptResponse res]
+  (a/as-admin (.executeSuper this req res)))

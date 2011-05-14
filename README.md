@@ -15,6 +15,12 @@ Structure
 
 - [lambdalf](https://github.com/skuro/lambdalf/tree/master/lambdalf) -- an AMP project, built from the [Maven AMP plugin](http://code.google.com/p/maven-alfresco-archetypes/). It ships `lambdalf-lib` plus an AMP structure to easily install `lambdalf` on your Alfresco instance.
 
+How to build it
+===============
+
+In order to build this projects yourself, you need a working Maven installation (tested with v3.0), and some Alfresco artifacts in your local repository.
+As Alfresco doesn't always ship artifacts in a timely fashion, you can download the alfresco.war file and extract and install artifacts from it following this guide.
+
 Samples
 =======
 
