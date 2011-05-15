@@ -29,17 +29,18 @@
 				<version>1.3.2</version>
 				<executions>
 					<execution>
-						<id>default</id>
-						<phase>generate-resources</phase>
+						<id>default-clojure</id>
+						<phase>process-classes</phase>
 						<goals>
 							<goal>compile</goal>
 						</goals>
 						<configuration>
 							<namespaces>
 								<namespace>alfresco.interop</namespace>
+								<namespace>alfresco.actions</namespace>
 							</namespaces>
-							<compileDeclaredNamespaceOnly>true</compileDeclaredNamespaceOnly>
-							<outputDirectory>${project.basedir}/clj</outputDirectory>
+							<!--<compileDeclaredNamespaceOnly>true</compileDeclaredNamespaceOnly>-->
+							<outputDirectory>${project.basedir}/target/clj</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -51,21 +52,39 @@
 				<version>2.4.3</version>
 				<executions>
 					<execution>
-						<id>clj-genclass</id>
-						<phase>process-resources</phase>
+						<id>interop-genclass</id>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
 							<resources>
 								<resource>
-									<directory>clj/alfresco/interop</directory>
+									<directory>target/clj/alfresco/interop</directory>
 									<includes>
 										<include>**/*</include>
 									</includes>
 								</resource>
 							</resources>
 							<outputDirectory>${project.build.directory}/classes/alfresco/interop</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>action-genclass</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>target/clj/alfresco/actions</directory>
+									<includes>
+										<include>**/*</include>
+									</includes>
+								</resource>
+							</resources>
+							<outputDirectory>${project.build.directory}/classes/alfresco/actions</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
