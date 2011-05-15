@@ -80,7 +80,7 @@
 								<resource>
 									<directory>target/clj/alfresco/actions</directory>
 									<includes>
-										<include>**/*</include>
+										<include>Action*.class</include>
 									</includes>
 								</resource>
 							</resources>
