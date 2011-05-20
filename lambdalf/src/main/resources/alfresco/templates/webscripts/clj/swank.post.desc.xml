@@ -1,7 +1,7 @@
 <webscript>
-	<shortname>Start the swank server</shortname>
-	<description>Starts the swank server</description>
-	<url>/swank</url>
-	<!-- WARN: makes everyone able to start swank! -->
-	<authentication>none</authentication>
+  <shortname>Start the swank server</shortname>
+  <description>Starts the swank server</description>
+  <url>/swank</url>
+  <!-- WARN: makes everyone able to start swank! -->
+  <authentication>none</authentication>
 </webscript>

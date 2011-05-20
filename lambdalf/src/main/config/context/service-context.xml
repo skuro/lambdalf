@@ -3,16 +3,16 @@
 
 <beans>
 
-	<bean id="webscripts.clj.scriptprocessor.factory"
-		  class="org.springframework.extensions.webscripts.processor.ClojureScriptProcessorFactory" />
+  <bean id="webscripts.clj.scriptprocessor.factory"
+        class="org.springframework.extensions.webscripts.processor.ClojureScriptProcessorFactory" />
 
-	<bean class="org.springframework.extensions.webscripts.ScriptProcessorRegistrar" init-method="init">
-      <property name="registry" ref="webscripts.repo.registry.scriptprocessor" />
-      <property name="factory" ref="webscripts.clj.scriptprocessor.factory" />
-      <property name="name"><value>Clojure Script Processor</value></property>
-      <property name="extension"><value>clj</value></property>
-   </bean>
+  <bean class="org.springframework.extensions.webscripts.ScriptProcessorRegistrar" init-method="init">
+    <property name="registry" ref="webscripts.repo.registry.scriptprocessor" />
+    <property name="factory" ref="webscripts.clj.scriptprocessor.factory" />
+    <property name="name"><value>Clojure Script Processor</value></property>
+    <property name="extension"><value>clj</value></property>
+  </bean>
 
-	<bean id="ContextHelper" class="it.sk.alfresco.clojure.ContextHelper"/>
+  <bean id="ContextHelper" class="it.sk.alfresco.clojure.ContextHelper"/>
 
 </beans>
