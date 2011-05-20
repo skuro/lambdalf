@@ -6,7 +6,9 @@ Here you can find an ongling effort to build a Clojure adapter around the Alfres
 - reading/writing/adding [nodes](https://github.com/skuro/lambdalf/blob/master/lambdalf-lib/src/main/clojure/alfresco/nodes.clj) properties
 - [search](https://github.com/skuro/lambdalf/blob/master/lambdalf-lib/src/main/clojure/alfresco/search.clj)
 - setting [behaviours](https://github.com/skuro/lambdalf/blob/master/lambdalf-lib/src/main/clojure/alfresco/behave.clj) upon `onAddAspect` events
-- run your code with the specified [credentials](https://github.com/skuro/lambdalf/blob/master/lambdalf-lib/src/main/clojure/alfresco/auth.clj)
+- run your code with the specified
+- [credentials](https://github.com/skuro/lambdalf/blob/master/lambdalf-lib/src/main/clojure/alfresco/auth.clj)
+- run clojure webscripts using the spring webscript [clojure addon](https://github.com/skuro/spring-webscripts-addon-clojure)
 
 Structure
 =========
