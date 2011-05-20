@@ -81,6 +81,7 @@
 									<directory>target/clj/alfresco/actions</directory>
 									<includes>
 										<include>Action*.class</include>
+										<include>Param.class</include>
 									</includes>
 								</resource>
 							</resources>
