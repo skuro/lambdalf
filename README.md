@@ -11,8 +11,7 @@ Here you can find an ongling effort to build a Clojure adapter around the Alfres
 Structure
 =========
 
--
-  [lambdalf-lib](https://github.com/skuro/lambdalf/tree/master/lambdalf-lib) -- a JAR project, contains all the real code provided in lambdalf. Use this as a dependency to leverage lambdalf code.
+- [lambdalf-lib](https://github.com/skuro/lambdalf/tree/master/lambdalf-lib) -- a JAR project, contains all the real code provided in lambdalf. Use this as a dependency to leverage lambdalf code.
 
 - [lambdalf](https://github.com/skuro/lambdalf/tree/master/lambdalf)
   -- an AMP project, built from the [Maven AMP plugin](http://code.google.com/p/maven-alfresco-archetypes/). It
