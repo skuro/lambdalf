@@ -1,6 +1,6 @@
 (ns alfresco.actions
-  (:use [clojure.string])
-  (:require [alfresco.core :as c]
+  (:require [clojure.string :as str]
+            [alfresco.core :as c]
             [alfresco.model :as m])
   (:import [org.alfresco.repo.action ParameterDefinitionImpl]
            [org.alfresco.service.cmr.repository NodeRef]
@@ -24,8 +24,8 @@
 
 (defn- translate-params
   "Handles the Clojure / Java impedance mismatch when it comes to action parameters"
-  [^Action action ^List current-params]
-  (let [java-params (map c/c2j (needs-params action))]
+  [new-params ^List current-params]
+  (let [java-params (map c/c2j new-params)]
     (map #(.add current-params %) java-params)))
 
 ;; Interop: allows the Clojure action to be registered as a Spring bean
@@ -33,23 +33,21 @@
            :extends  org.alfresco.repo.action.executer.ActionExecuterAbstractBase
            :prefix "act-"
            :constructors {[String] []} ; FQN of the concrete Action
-           :init clojure-init)
+           :init clojure-init) ; base class already has a 'init' method
 
 (defn act-clojure-init
   "Stores an instance of the supplied concrete Action as a state"
   [^String impl]
-  (let [[namespace func] (map symbol (split impl #"/"))]
-    (require namespace)
-    [[] (eval (list (symbol (str impl "."))))])) ;; dirty reflection hack
+  (let [concrete (symbol impl)]
+    [[] (eval (list (symbol (str concrete "."))))])) ;; dirty reflection hack
 
-(defn act-execute-impl
+(defn act-executeImpl
   "Passes the ball to the concrete Action"
   [this action node]
   (let [impl (.state this)]
     (exec impl action (c/j2c node))))
 
-(defn act-add-parameter-definitions
-  "Sets the parameters needed by our actions"
-  [this ^List params]
-  (let [impl (.state this)]
-    (translate-params (needs-params impl) params)))
+(defn act-addParameterDefinitions
+  "Passes the ball to the concrete Action"
+  [this params]
+  (println "test"))
