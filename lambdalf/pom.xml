@@ -16,6 +16,13 @@
 		Install this module to unleash all the functional programming power your Alfresco can provide.
 	</description>
 
+    <repositories>
+        <repository>
+            <id>clojars.org</id>
+            <url>http://clojars.org/repo</url>
+        </repository>
+    </repositories>
+
 	<properties>
 		<!--
 					  Default for which src/main/properties/<env>/application.properties is
