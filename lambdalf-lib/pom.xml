@@ -129,8 +129,7 @@
 		<dependency>
 			<groupId>acegisecurity</groupId>
 			<artifactId>acegi-security</artifactId>
-			<version>0.8.2</version>
-			<classifier>alfresco</classifier>
+			<version>0.8.2-patched</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -149,8 +148,8 @@
 		<dependency>
 			<groupId>truezip</groupId>
 			<artifactId>truezip</artifactId>
-			<version>3.4.0</version>
-			<classifier>alfresco</classifier>
+			<version>unknown</version>
+            <scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>
