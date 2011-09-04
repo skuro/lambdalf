@@ -37,7 +37,7 @@ Samples
 
 More of a show and tell than real products, some
 [samples](https://github.com/skuro/lambdalf-samples) are provided to
-verify and explain the feature of lambdalf.
+verify and explain the features of lambdalf.
 
 Learn more
 ==========
