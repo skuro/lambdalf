@@ -25,8 +25,9 @@ How to build it
 ===============
 
 In order to build this projects yourself, you  need a working Maven
-installation (tested with v3.0), and some Alfresco artifacts in your
-local repository.
+installation (tested with v3.0).
+
+By default, the project uses the latest artifacts provided in the official Alfresco [maven repository](http://maven.alfresco.com).
 As Alfresco doesn't always ship artifacts in a timely fashion, you can
 download the alfresco.war file and extract and install artifacts from
 it following [this
