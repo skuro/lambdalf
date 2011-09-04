@@ -50,8 +50,8 @@
 	</modules>
 
 	<properties>
-		<alfresco.version>3.4.0</alfresco.version>
-		<alfresco.classifier>enterprise</alfresco.classifier>
+		<alfresco.version>3.4.a</alfresco.version>
+		<alfresco.classifier>community</alfresco.classifier>
 		<spring.version>3.0.0.RELEASE</spring.version>
 		<spring.surf.version>1.0.0.CI-SNAPSHOT</spring.surf.version>
 		<clojure.version>1.2.1</clojure.version>
@@ -70,6 +70,10 @@
 				<updatePolicy>daily</updatePolicy>
 			</snapshots>
 		</repository>
+        <repository>
+            <id>clojars.org</id>
+            <url>http://clojars.org/repo</url>
+        </repository>
 		<!-- Spring surf artifacts -->
 		<!--<repository>-->
 		<!--<id>surf-milestone</id>-->
