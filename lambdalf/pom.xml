@@ -71,7 +71,7 @@
 		<dependency>
 			<groupId>it.sk.spring.surf.clojure</groupId>
 			<artifactId>spring-webscripts-addon-clojure</artifactId>
-			<version>1.0-alpha</version>
+			<version>1.0-alpha2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.extensions.surf</groupId>
