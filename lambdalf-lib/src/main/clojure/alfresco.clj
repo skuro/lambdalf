@@ -4,10 +4,9 @@
 (def *swank-server* (atom nil))
 
 (defn- switch
-  "Currently only starts up the server. TODO: stop it in case it's already running"
+  "Starts up the swank server. Server shutdown is currently not supported."
   [current]
   (swank.swank/start-repl))
 
-(defn start-swank
-  []
+(defn start-swank []
   (swap! *swank-server* switch))
