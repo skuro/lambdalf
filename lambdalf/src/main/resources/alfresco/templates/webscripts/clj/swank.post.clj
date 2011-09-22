@@ -1,9 +1,7 @@
-;; ns forms are currently useless
-
-(require '[spring.surf.webscript :as w]
-         '[alfresco :as a])
-
-(import '[spring.surf.webscript WebScript])
+(ns lambdalf.webscript.swank
+  (:require [spring.surf.webscript :as w]
+            [alfresco :as a])
+  (:import [spring.surf.webscript WebScript]))
 
 (deftype SwankWebScript
   []
