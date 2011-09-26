@@ -7,6 +7,7 @@
   []
   WebScript
   (run [this in out model]
-       (w/return model {:swank (a/start-swank)})))
+    (a/start-swank)
+    (w/return model {:swank "OK"})))
 
 (SwankWebScript.)
