@@ -15,7 +15,13 @@
            :prefix "ci-"
            :methods [[setNamespaces [java.util.List] void]])
 
+(defn load-ns
+  "loads a given ns provided its dotted String representation"
+  [^String ns]
+  (let [s (.replaceAll ns "\\." "/")]
+    (load (str "/" s))))
+
 (defn ci-setNamespaces
   "Bootstraps the given namespaces"
   [this ns-list]
-  (apply load ns-list))
+  (apply load-ns ns-list))
