@@ -2,4 +2,4 @@
 OK
 <#else>
 ERROR
-</if>
+</#if>
