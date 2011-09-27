@@ -10,3 +10,12 @@
 
 (defn start-swank []
   (swap! *swank-server* switch))
+
+(gen-class :name alfresco.interop.ClojureInit
+           :prefix "ci-"
+           :methods [[setNamespaces [java.util.List] void]])
+
+(defn ci-setNamespaces
+  "Bootstraps the given namespaces"
+  [this ns-list]
+  (apply load ns-list))
