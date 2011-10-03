@@ -1,5 +1,5 @@
 <#if port??>
-{port : $port}
+{port : ${port}}
 <#else>
 ERROR
 </#if>

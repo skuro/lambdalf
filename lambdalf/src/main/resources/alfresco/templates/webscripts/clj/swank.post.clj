@@ -9,6 +9,6 @@
   (run [this in out model]
     (a/start-swank)
     (w/return model {:swank "OK"
-                     :port 4005})))
+                     :port "4005"})))
 
 (SwankWebScript.)
