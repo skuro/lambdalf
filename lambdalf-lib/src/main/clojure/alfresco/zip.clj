@@ -1,7 +1,7 @@
 (ns alfresco.zip
   (:require [clojure.zip :as z]
-             [alfresco.model :as m]
-             [alfresco.nodes :as n]))
+            [alfresco.model :as m]
+            [alfresco.nodes :as n]))
 
 (defn branch?
   "Verifies if the current location can have children.
