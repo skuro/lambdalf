@@ -3,7 +3,7 @@
             [alfresco.model :as m]
             [alfresco.auth :as a]))
 
-(defn ts
+(defn to-seq
   "Returns a lazy seq of the nodes representing the repository branch
 having the given root. Uses the currently authenticated user to realize
 the seq." 
