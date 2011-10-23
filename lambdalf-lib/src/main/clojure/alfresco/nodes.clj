@@ -82,7 +82,8 @@
                        (m/qname "cm:contains"))
          assoc-name (if assoc
                       (m/qname assoc)
-                      (m/qname (str "cm:" (props ContentModel/PROP_NAME))))
+                      (m/qname (str "cm:" (or (props "cm:name")
+                                              (props ContentModel/PROP_NAME)))))
          ^ChildAssociationRef assoc-ref (.createNode (node-service)
                                                      (c/c2j node)
                                                      assoc-qname
