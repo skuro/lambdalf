@@ -76,20 +76,22 @@
   (dir? [node] (= (m/qname "cm:folder" (.getType (node-service) (c/c2j node)))))
 
   (create-child-assoc
-   [node {:keys [assoc-type assoc props type]}]
-   (let [assoc-qname (if assoc-type
-                       (m/qname assoc-type)
-                       (m/qname "cm:contains"))
-         assoc-name (if assoc
-                      (m/qname assoc)
-                      (m/qname (str "cm:" (or (props "cm:name")
-                                              (props ContentModel/PROP_NAME)))))
-         ^ChildAssociationRef assoc-ref (.createNode (node-service)
-                                                     (c/c2j node)
-                                                     assoc-qname
-                                                     assoc-name
-                                                     (m/qname type)
-                                                     props)]
+    [node {:keys [assoc-type assoc props type]}]
+    (let [props* (zipmap (map m/qname (keys props))
+                         (vals props))
+          assoc-qname (if assoc-type
+                        (m/qname assoc-type)
+                        (m/qname "cm:contains"))
+          assoc-name (if assoc
+                       (m/qname assoc)
+                       (m/qname (str "cm:" (or (props* "cm:name")
+                                               (props* ContentModel/PROP_NAME)))))
+          ^ChildAssociationRef assoc-ref (.createNode (node-service)
+                                                      (c/c2j node)
+                                                      assoc-qname
+                                                      assoc-name
+                                                      (m/qname type)
+                                                      props*)]
      
       {:type assoc-qname
        :name assoc-name
