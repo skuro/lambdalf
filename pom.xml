@@ -50,10 +50,10 @@
 	</modules>
 
 	<properties>
-		<alfresco.version>4.0.b</alfresco.version>
+		<alfresco.version>3.4.a</alfresco.version>
 		<alfresco.classifier>community</alfresco.classifier>
-		<spring.version>3.0.5.RELEASE</spring.version>
-		<spring.surf.version>1.0.0</spring.surf.version>
+		<spring.version>3.0.0.RELEASE</spring.version>
+		<spring.surf.version>1.0.0.CI-SNAPSHOT</spring.surf.version>
 		<clojure.version>1.3.0</clojure.version>
 	</properties>
 
@@ -121,7 +121,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.alfresco</groupId>
-				<artifactId>alfresco-datamodel</artifactId>
+				<artifactId>alfresco-data-model</artifactId>
 				<version>${alfresco.version}</version>
 				<classifier>${alfresco.classifier}</classifier>
 			</dependency>
