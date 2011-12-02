@@ -40,8 +40,8 @@
 	</scm>
 
 	<issueManagement>
-		<system>ScrumDo</system>
-		<url>http://www.scrumdo.com/projects/project/lambdalf</url>
+		<system>GitHub</system>
+		<url>https://github.com/skuro/lambdalf/issues</url>
 	</issueManagement>
 
 	<modules>
