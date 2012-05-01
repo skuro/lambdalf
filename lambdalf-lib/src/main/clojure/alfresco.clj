@@ -1,7 +1,8 @@
 (ns alfresco
   (:require [swank.swank]))
+(use '[clojure.tools.nrepl.server :only (start-server stop-server)])
 
-(def *swank-server* (atom nil))
+(def ^:dynamic *swank-server* (atom nil))
 
 (defn- switch
   "Starts up the swank server. Server shutdown is currently not supported."
@@ -10,6 +11,9 @@
 
 (defn start-swank []
   (swap! *swank-server* switch))
+
+; Start the nREPL server - note: should be handled more like the swank server above (i.e. hold a reference to the server in an atom)
+(defonce nrepl-server (start-server :port 7888))
 
 (gen-class :name alfresco.interop.ClojureInit
            :prefix "ci-"
