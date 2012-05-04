@@ -14,7 +14,6 @@
   (swap! *swank-server* switch-swank))
 
 ; Start the NREPL server
-; (defonce nrepl-server (start-server :port 7888))
 (def ^:dynamic *nrepl-server* (atom nil))
 
 (defn- switch-nrepl
@@ -25,6 +24,7 @@
 (defn start-nrepl []
   (swap! *nrepl-server* switch-nrepl))
 
+; Other Clojure gobbledygook
 (gen-class :name alfresco.interop.ClojureInit
            :prefix "ci-"
            :methods [[setNamespaces [java.util.List] void]])
