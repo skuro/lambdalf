@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Lambdalf by skuro</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Lambdalf</h1>
+        <p>Alfresco module that exposes a Clojure API to access the repository.</p>
+        <p class="view"><a href="https://github.com/skuro/lambdalf">View the Project on GitHub <small>skuro/lambdalf</small></a></p>
+        <ul>
+          <li><a href="https://github.com/skuro/lambdalf/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/skuro/lambdalf/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/skuro/lambdalf">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Lambdalf -- Alfresco with a Clojure taste</h1>
+
+<p>A Clojure adapter around the Alfresco Foundation API. Currently the following features are supported:</p>
+
+<ul>
+<li>reading/writing/adding <a href="https://github.com/skuro/lambdalf/blob/master/lambdalf-lib/src/main/clojure/alfresco/nodes.clj">nodes</a> properties</li>
+<li><a href="https://github.com/skuro/lambdalf/blob/master/lambdalf-lib/src/main/clojure/alfresco/search.clj">search</a></li>
+<li>setting <a href="https://github.com/skuro/lambdalf/blob/master/lambdalf-lib/src/main/clojure/alfresco/behave.clj">behaviours</a> upon <code>onAddAspect</code> events</li>
+<li>run your code with the specified <a href="https://github.com/skuro/lambdalf/blob/master/lambdalf-lib/src/main/clojure/alfresco/auth.clj">credentials</a>
+</li>
+<li>run clojure webscripts using the spring webscript <a href="https://github.com/skuro/spring-webscripts-addon-clojure">clojure addon</a>
+</li>
+</ul><h1>Sample code</h1>
+
+<div class="highlight">
+<pre><span class="p">(</span><span class="kd">defn </span><span class="nv">set-meta</span>
+  <span class="s">"Sets some metadata properties on the node"</span>
+  <span class="p">[</span><span class="nv">node</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">n/set-properties!</span> <span class="nb">node </span><span class="s">"cm:title"</span> <span class="s">"foobar"</span> <span class="s">"my:property"</span> <span class="s">"value"</span><span class="p">))</span>
+</pre>
+</div>
+
+
+<div class="highlight">
+<pre><span class="p">(</span><span class="kd">defn </span><span class="nv">add-aspect</span> 
+  <span class="s">"Executes fun upon qname aspect application"</span>
+  <span class="p">[</span><span class="nv">qname</span> <span class="nv">fun</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">b/on-add-aspect!</span> <span class="nv">qname</span> <span class="nv">fun</span><span class="p">))</span>
+</pre>
+</div>
+
+
+<h1>Structure</h1>
+
+<ul>
+<li><p><a href="https://github.com/skuro/lambdalf/tree/master/lambdalf-lib">lambdalf-lib</a> -- a JAR project, contains all the real code provided in lambdalf. Use this as a dependency to leverage lambdalf code.</p></li>
+<li><p><a href="https://github.com/skuro/lambdalf/tree/master/lambdalf">lambdalf</a>
+-- an AMP project, built from the <a href="http://code.google.com/p/maven-alfresco-archetypes/">Maven AMP plugin</a>. It
+ships <code>lambdalf-lib</code> plus an AMP structure to easily install
+<code>lambdalf</code> on your Alfresco instance, plus some goodies like a web
+script to start a swank server to open a REPL from Emacs to a
+running Alfresco instane.</p></li>
+</ul><h1>How to build it</h1>
+
+<p>In order to build this projects yourself, you  need a working Maven
+installation (tested with v3.0).</p>
+
+<p>By default, the project uses the latest artifacts provided in the official Alfresco <a href="http://maven.alfresco.com">maven repository</a>.
+As Alfresco doesn't always ship artifacts in a timely fashion, you can
+download the alfresco.war file and extract and install artifacts from
+it following <a href="http://code.google.com/p/maven-alfresco-archetypes/wiki/MaintainYourRepo">this
+guide</a>.</p>
+
+<h1>Samples</h1>
+
+<p>More of a show and tell than real products, some
+<a href="https://github.com/skuro/lambdalf-samples">samples</a> are provided to
+verify and explain the features of lambdalf.</p>
+
+<h1>Learn more</h1>
+
+<ul>
+<li>my personal <a href="http://skuro.tk">blog</a>
+</li>
+<li>clojure support for spring <a href="https://github.com/skuro/spring-webscripts-addon-clojure">web scripts</a> </li>
+</ul><h1>Authors and Contributors</h1>
+
+<ul>
+<li>
+<a href="https://github.com/skuro" class="user-mention">@skuro</a> - Maintainer</li>
+</ul>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/skuro">skuro</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
