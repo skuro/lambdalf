@@ -40,12 +40,6 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.6</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>it.sk.spring.surf.clojure</groupId>
             <artifactId>spring-webscripts-addon-clojure</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -85,16 +79,9 @@
                 </executions>
             </plugin>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.alfresco.maven.plugin</groupId>
                 <artifactId>maven-amp-plugin</artifactId>
-                <version>3.0.4</version>
+                <version>${amp.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <archive>
@@ -115,31 +102,9 @@
                     <exclude>**README-*</exclude>
                 </excludes>
             </resource>
-            <!--
-                Copies and filters AMP config in the proper package
-                'alfresco/module/it.sk.alfresco.lambdalf' so to enforce full module
-                naming single sourcing from POM properties
-            -->
-            <resource>
-                <filtering>true</filtering>
-                <directory>src/main/config</directory>
-                <targetPath>alfresco/module/${groupId}.${artifactId}</targetPath>
-                <excludes>
-                    <exclude>**README-*</exclude>
-                </excludes>
-            </resource>
-
-            <!-- Clojure stuff -->
-            <resource>
-                <directory>src/main/clojure</directory>
-            </resource>
         </resources>
     </build>
     <profiles>
-        <!--
-            Profile used to trigger war creation and integration within Jetty
-            embedded
-        -->
         <!--
             Profile used to trigger war creation and integration within Jetty
             embedded
@@ -171,14 +136,14 @@
                         </executions>
                         <dependencies>
                             <!--
-                                                                          This is required to be re-defined explicitly at plugin level as
-                                                                          otherwise the 'amp' extension unArchiver won't be available to
-                                                                          the maven-dependency-plugin
-                                                                      -->
+                              This is required to be re-defined explicitly at plugin level as
+                              otherwise the 'amp' extension unArchiver won't be available to
+                              the maven-dependency-plugin
+                            -->
                             <dependency>
                                 <groupId>org.alfresco.maven.plugin</groupId>
                                 <artifactId>maven-amp-plugin</artifactId>
-                                <version>3.0.2</version>
+                                <version>${amp.plugin.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -202,9 +167,9 @@
                         <configuration>
                             <primaryArtifact>false</primaryArtifact>
                             <!--
-                                                                          Don't remove the following line otherwise WAR and AMP builds
-                                                                          will be done in the same folder, with unexpected results
-                                                                      -->
+                              Don't remove the following line otherwise WAR and AMP builds
+                              will be done in the same folder, with unexpected results
+                            -->
                             <webappDirectory>${project.build.directory}/${webapp.name}</webappDirectory>
                             <archive>
                                 <addMavenDescriptor>false</addMavenDescriptor>
@@ -244,7 +209,7 @@
                             <dependency>
                                 <groupId>org.alfresco.maven.plugin</groupId>
                                 <artifactId>maven-amp-plugin</artifactId>
-                                <version>3.0.2</version>
+                                <version>${amp.plugin.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -277,7 +242,7 @@
                             <dependency>
                                 <groupId>tk.skuro.alfresco</groupId>
                                 <artifactId>h2-support</artifactId>
-                                <version>1.1</version>
+                                <version>${alfresco.h2.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>com.h2database</groupId>
@@ -298,16 +263,15 @@
                     <testResource>
                         <filtering>true</filtering>
                         <directory>src/test/properties/${env}</directory>
-                        <!--<targetPath>alfresco/module/${groupId}.${artifactId}</targetPath>-->
                     </testResource>
 
                     <!--
-                                                      src/main/config/ is copied into ==>
-                                                      target/test-classes/alfresco/module/it.sk.alfresco.lambdalf to be
-                                                      picked up by the maven-war plugin Best practice tacken from
-                                                      recordsmanagement.amp, is enforced troughout the whole archetype.
-                                                      This convention is also used for module.properties filtering.
-                                                  -->
+                      src/main/config/ is copied into ==>
+                      target/test-classes/alfresco/module/it.sk.alfresco.lambdalf to be
+                      picked up by the maven-war plugin Best practice taken from
+                      records management.amp, is enforced throughout the whole archetype.
+                      This convention is also used for module.properties filtering.
+                    -->
                     <testResource>
                         <filtering>true</filtering>
                         <directory>.</directory>
@@ -318,12 +282,6 @@
                     </testResource>
                 </testResources>
             </build>
-            <!--
-               Here you can add test dependencies you want to have included in the
-               the WAR (not in the AMP, built in the main profile) | | Typical use
-               case: add here additional AMPs that you want to test compatibility
-               of with the current module |
-             -->
             <dependencies>
                 <!--
                   This is the alfresco version you're testing the AMP against. Don't

@@ -105,7 +105,7 @@
     <!-- http://wiki.eclipse.org/M2E_plugin_execution_not_covered -->
     <pluginManagement>
       <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings 
+        <!--This plugin's configuration is used to store Eclipse m2e settings
           only. It has no influence on the Maven build itself. -->
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
@@ -192,12 +192,6 @@
     <dependency>
       <groupId>org.springframework.extensions.surf</groupId>
       <artifactId>spring-webscripts</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>truezip</groupId>
-      <artifactId>truezip</artifactId>
-      <version>unknown</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
