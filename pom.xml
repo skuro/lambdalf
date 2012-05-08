@@ -64,6 +64,7 @@
         <spring.version>3.0.5.RELEASE</spring.version>
         <spring.surf.version>1.0.0</spring.surf.version>
         <clojure.version>1.4.0</clojure.version>
+        <surf.clojure.version>1.0-alpha1</surf.clojure.version>
         <amp.plugin.version>3.0.4</amp.plugin.version>
         <alfresco.h2.version>1.2</alfresco.h2.version>
     </properties>

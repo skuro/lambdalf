@@ -24,7 +24,6 @@
         <alfresco.db.username>alfresco</alfresco.db.username>
         <alfresco.db.password>alfresco</alfresco.db.password>
         <webapp.log.level>error</webapp.log.level>
-        <webapp.log.dir></webapp.log.dir>
 
         <!--  Module specific build time properties -->
         <module.log.level>debug</module.log.level>
@@ -40,9 +39,9 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>it.sk.spring.surf.clojure</groupId>
+            <groupId>tk.skuro.spring.surf.clojure</groupId>
             <artifactId>spring-webscripts-addon-clojure</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${surf.clojure.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.extensions.surf</groupId>
