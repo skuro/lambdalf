@@ -9,9 +9,8 @@
     <parent>
         <artifactId>lambdalf-parent</artifactId>
         <groupId>it.sk.alfresco</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-alf3-SNAPSHOT</version>
     </parent>
-    <version>1.0-SNAPSHOT</version>
     <description>Install this module to unleash all the functional programming power your Alfresco can provide.
     </description>
 
