@@ -12,8 +12,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <version>1.0-SNAPSHOT</version>
-    <description>
-        Install this module to unleash all the functional programming power your Alfresco can provide.
+    <description>Install this module to unleash all the functional programming power your Alfresco can provide.
     </description>
 
     <properties>
@@ -31,9 +30,9 @@
         <module.log.level>debug</module.log.level>
     </properties>
     <!--
-              need to list these as a provided so that Maven doesn't download them
-              and include them in the AMP, they are provided by Alfresco
-          -->
+        need to list these as a provided so that Maven doesn't download them
+        and include them in the AMP, they are provided by Alfresco
+    -->
     <dependencies>
         <dependency>
             <groupId>it.sk.alfresco</groupId>
@@ -49,7 +48,7 @@
         <dependency>
             <groupId>it.sk.spring.surf.clojure</groupId>
             <artifactId>spring-webscripts-addon-clojure</artifactId>
-            <version>1.0-alpha2</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.extensions.surf</groupId>
@@ -57,12 +56,14 @@
             <version>1.0.0.CI-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.extensions.surf</groupId>
-            <artifactId>spring-webscripts</artifactId>
-            <version>1.0.0.CI-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
+        <!--
+            <dependency>
+              <groupId>org.springframework.extensions.surf</groupId>
+              <artifactId>spring-webscripts</artifactId>
+              <version>1.0.0.CI-SNAPSHOT</version>
+              <scope>provided</scope>
+            </dependency>
+        -->
         <!-- Don't add here amp dependencies as it will break amp packaging -->
     </dependencies>
 
@@ -93,7 +94,7 @@
             <plugin>
                 <groupId>org.alfresco.maven.plugin</groupId>
                 <artifactId>maven-amp-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.0.4</version>
                 <extensions>true</extensions>
                 <configuration>
                     <archive>
@@ -103,9 +104,9 @@
             </plugin>
         </plugins>
         <!--
-                        Copies and filters resources in build folder so maven-amp-plugin can
-                        pick them up
-                    -->
+            Copies and filters resources in build folder so maven-amp-plugin can
+            pick them up
+        -->
         <resources>
             <resource>
                 <filtering>true</filtering>
@@ -115,10 +116,10 @@
                 </excludes>
             </resource>
             <!--
-                                  Copies and filters AMP config in the proper package
-                                  'alfresco/module/it.sk.alfresco.lambdalf' so to enforce full module
-                                  naming single sourcing from POM properties
-                              -->
+                Copies and filters AMP config in the proper package
+                'alfresco/module/it.sk.alfresco.lambdalf' so to enforce full module
+                naming single sourcing from POM properties
+            -->
             <resource>
                 <filtering>true</filtering>
                 <directory>src/main/config</directory>
@@ -128,8 +129,7 @@
                 </excludes>
             </resource>
 
-            <!--
-                               Clojure stuff -->
+            <!-- Clojure stuff -->
             <resource>
                 <directory>src/main/clojure</directory>
             </resource>
@@ -137,9 +137,13 @@
     </build>
     <profiles>
         <!--
-                        Profile used to trigger war creation and integration within Jetty
-                        embedded
-                    -->
+            Profile used to trigger war creation and integration within Jetty
+            embedded
+        -->
+        <!--
+            Profile used to trigger war creation and integration within Jetty
+            embedded
+        -->
         <profile>
             <id>webapp</id>
             <build>
@@ -233,10 +237,10 @@
                         </configuration>
                         <dependencies>
                             <!--
-                                                                          This is required to be re-defined explicitly at plugin level as
-                                                                          otherwise the 'amp' extension unArchiver won't be available to
-                                                                          the maven-war-plugin
-                                                                      -->
+                              This is required to be re-defined explicitly at plugin level as
+                              otherwise the 'amp' extension unArchiver won't be available to
+                              the maven-war-plugin
+                              -->
                             <dependency>
                                 <groupId>org.alfresco.maven.plugin</groupId>
                                 <artifactId>maven-amp-plugin</artifactId>
@@ -284,11 +288,11 @@
                     </plugin>
                 </plugins>
                 <!--
-                                            When invoking 'mvn integration-test', the following alf configs are
-                                            added to the test war in order to be able to run it seamlessly. NB:
-                                            the application.properties file is filtered with alfresco.db.name
-                                            and alf.data.location POM properties as default configuration
-                                        -->
+                  When invoking 'mvn integration-test', the following alf configs are
+                  added to the test war in order to be able to run it seamlessly. NB:
+                  the application.properties file is filtered with alfresco.db.name
+                  and alf.data.location POM properties as default configuration
+                -->
                 <testResources>
                     <!-- Includes default properties  for alfresco test war -->
                     <testResource>
@@ -315,16 +319,16 @@
                 </testResources>
             </build>
             <!--
-                                  Here you can add test dependencies you want to have included in the
-                                  the WAR (not in the AMP, built in the main profile) | | Typical use
-                                  case: add here additional AMPs that you want to test compatibility
-                                  of with the current module |
-                              -->
+               Here you can add test dependencies you want to have included in the
+               the WAR (not in the AMP, built in the main profile) | | Typical use
+               case: add here additional AMPs that you want to test compatibility
+               of with the current module |
+             -->
             <dependencies>
                 <!--
-                                            This is the alfresco version you're testing the AMP against. Don't
-                                            remove if you want jetty to be able to deploy a WAR :)
-                                        -->
+                  This is the alfresco version you're testing the AMP against. Don't
+                  remove if you want jetty to be able to deploy a WAR :)
+                -->
                 <dependency>
                     <groupId>org.alfresco</groupId>
                     <artifactId>alfresco</artifactId>
@@ -334,6 +338,5 @@
                 </dependency>
             </dependencies>
         </profile>
-
     </profiles>
 </project>
