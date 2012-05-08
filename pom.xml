@@ -59,14 +59,13 @@
     </modules>
 
     <properties>
-        <alfresco.version>4.0.b</alfresco.version>
-        <alfresco.classifier>community</alfresco.classifier>
-        <spring.version>3.0.5.RELEASE</spring.version>
+        <alfresco.version>3.4.e</alfresco.version>
+        <spring.version>3.0.0.RELEASE</spring.version>
         <spring.surf.version>1.0.0</spring.surf.version>
         <clojure.version>1.4.0</clojure.version>
         <surf.clojure.version>1.0-alpha1</surf.clojure.version>
         <amp.plugin.version>3.0.4</amp.plugin.version>
-        <alfresco.h2.version>1.2</alfresco.h2.version>
+        <alfresco.h2.version>1.1</alfresco.h2.version>
     </properties>
 
     <repositories>
@@ -114,25 +113,21 @@
                 <groupId>org.alfresco</groupId>
                 <artifactId>alfresco-core</artifactId>
                 <version>${alfresco.version}</version>
-                <classifier>${alfresco.classifier}</classifier>
             </dependency>
             <dependency>
                 <groupId>org.alfresco</groupId>
                 <artifactId>alfresco-datamodel</artifactId>
                 <version>${alfresco.version}</version>
-                <classifier>${alfresco.classifier}</classifier>
             </dependency>
             <dependency>
                 <groupId>org.alfresco</groupId>
                 <artifactId>alfresco-remote-api</artifactId>
                 <version>${alfresco.version}</version>
-                <classifier>${alfresco.classifier}</classifier>
             </dependency>
             <dependency>
                 <groupId>org.alfresco</groupId>
                 <artifactId>alfresco-repository</artifactId>
                 <version>${alfresco.version}</version>
-                <classifier>${alfresco.classifier}</classifier>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -149,6 +144,11 @@
                 <artifactId>spring-webscripts</artifactId>
                 <version>${spring.surf.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>truezip</groupId>
+                <artifactId>truezip</artifactId>
+                <version>unknown</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

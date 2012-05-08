@@ -20,6 +20,13 @@
     <nrepl.version>0.2.0-beta2</nrepl.version>
   </properties>
 
+  <repositories>
+    <repository>
+        <id>unavailable-alfresco-jars</id>
+        <url>file://${project.basedir}/src/main/lib</url>
+    </repository>
+  </repositories>
+
   <build>
     <resources>
       <resource>
@@ -153,25 +160,21 @@
       <groupId>org.alfresco</groupId>
       <artifactId>alfresco-core</artifactId>
       <scope>provided</scope>
-      <classifier>${alfresco.classifier}</classifier>
     </dependency>
     <dependency>
       <groupId>org.alfresco</groupId>
       <artifactId>alfresco-datamodel</artifactId>
       <scope>provided</scope>
-      <classifier>${alfresco.classifier}</classifier>
     </dependency>
     <dependency>
       <groupId>org.alfresco</groupId>
       <artifactId>alfresco-remote-api</artifactId>
       <scope>provided</scope>
-      <classifier>${alfresco.classifier}</classifier>
     </dependency>
     <dependency>
       <groupId>org.alfresco</groupId>
       <artifactId>alfresco-repository</artifactId>
       <scope>provided</scope>
-      <classifier>${alfresco.classifier}</classifier>
     </dependency>
     <dependency>
       <groupId>acegisecurity</groupId>
@@ -193,6 +196,11 @@
       <groupId>org.springframework.extensions.surf</groupId>
       <artifactId>spring-webscripts</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>truezip</groupId>
+      <artifactId>truezip</artifactId>
+      <version>unknown</version>
     </dependency>
   </dependencies>
 </project>

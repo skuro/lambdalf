@@ -32,8 +32,10 @@ installation (tested with v3.0).
 By default, the project uses the latest artifacts provided in the official Alfresco [maven repository](http://maven.alfresco.com).
 As Alfresco doesn't always ship artifacts in a timely fashion, you can
 download the alfresco.war file and extract and install artifacts from
-it following [this
-guide](http://code.google.com/p/maven-alfresco-archetypes/wiki/MaintainYourRepo).
+it following [this guide](http://code.google.com/p/maven-alfresco-archetypes/wiki/MaintainYourRepo).
+
+The only known problematic JAR at this time is `truezip.jar`, which seems to be unavailable in any repository. It is
+provided here
 
 Samples
 =======
@@ -46,4 +48,4 @@ Learn more
 ==========
 
 - my personal [blog](http://skuro.tk)
-- clojure support for spring [web scripts](https://github.com/skuro/spring-webscripts-addon-clojure) 
+- clojure support for spring [web scripts](https://github.com/skuro/spring-webscripts-addon-clojure)

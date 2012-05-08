@@ -291,7 +291,6 @@
                     <artifactId>alfresco</artifactId>
                     <version>${alfresco.version}</version>
                     <type>war</type>
-                    <classifier>${alfresco.classifier}</classifier>
                 </dependency>
             </dependencies>
         </profile>
