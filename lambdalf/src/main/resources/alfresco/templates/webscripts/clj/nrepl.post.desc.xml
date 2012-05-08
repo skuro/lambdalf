@@ -1,0 +1,7 @@
+<webscript>
+  <shortname>Start the NREPL server</shortname>
+  <description>Starts the NREPL server</description>
+  <url>/clojure/nrepl</url>
+  <authentication>user</authentication>
+  <family>lambdalf</family>
+</webscript>

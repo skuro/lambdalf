@@ -2,7 +2,7 @@
   (:require [swank.swank]))
 (use '[clojure.tools.nrepl.server :only (start-server stop-server)])
 
-; Start the Swank server
+; Starts the Swank server
 (def ^:dynamic *swank-server* (atom nil))
 
 (defn- switch-swank
@@ -13,7 +13,7 @@
 (defn start-swank []
   (swap! *swank-server* switch-swank))
 
-; Start the NREPL server
+; Starts the NREPL server
 (def ^:dynamic *nrepl-server* (atom nil))
 
 (defn- switch-nrepl
