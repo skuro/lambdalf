@@ -100,6 +100,20 @@
                     <exclude>**README-*</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/config</directory>
+            </resource>
+            <!--
+                Copies and filters AMP config in the proper package
+                'alfresco/module/it.sk.alfresco.lambdalf' so to enforce full module
+                naming single sourcing from POM properties
+            -->
+            <resource>
+               <filtering>true</filtering>
+                <directory>src/main/config</directory>
+                <targetPath>alfresco/module/${groupId}.${artifactId}</targetPath>
+            </resource>
         </resources>
     </build>
     <profiles>
