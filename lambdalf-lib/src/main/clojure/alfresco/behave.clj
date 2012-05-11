@@ -16,7 +16,7 @@ QName qname. The provided form f must accept two input parameters: a noderef and
   [qname f]
   `(let [p# (reify NodeServicePolicies$OnAddAspectPolicy
                    (~'onAddAspect [~'this ~'node-in ~'qname-in]
-                                  (~f (c/j2c ~'node-in) (m/qname-str ~'qname-in))))
+                     (~f ~'node-in (m/qname-str ~'qname-in))))
          b# (JavaBehaviour. p#
                             "onAddAspect"
                             Behaviour$NotificationFrequency/TRANSACTION_COMMIT)]

@@ -22,7 +22,7 @@
 (defn read!
   "Returns a lazy seq of the content of the provided node"
   [node]
-  (let [noderef (c/c2j node)
+  (let [noderef node
         is (is noderef)]
     (map char (take-while #(not= -1 %) (repeatedly #(.read is))))))
 
@@ -31,13 +31,13 @@
   String
   (write!
    [^String src node]
-   (let [noderef (c/c2j node)
+    (let [noderef node
          w (.getWriter (content-service) noderef ContentModel/PROP_CONTENT true)]
      (.putContent w (ByteArrayInputStream. (.getBytes src "UTF-8")))))
   
   File
   (write!
    [^File src node]
-   (let [noderef (c/c2j node)
+    (let [noderef node
          w (.getWriter (content-service) noderef ContentModel/PROP_CONTENT true)]
      (.putContent w src))))

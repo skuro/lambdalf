@@ -37,7 +37,7 @@
   "Passes the ball to the concrete Action"
   [this action node]
   (let [impl (.concrete this)]
-    (exec impl action (c/j2c node))))
+    (exec impl action node)))
 
 (defn act-addParameterDefinitions
   "Passes the ball to the concrete Action"

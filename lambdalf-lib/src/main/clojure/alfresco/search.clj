@@ -1,11 +1,9 @@
 (ns alfresco.search
-
   (:require [alfresco.core :as c]
             [alfresco.auth :as a])
 
   (:import [org.alfresco.service.cmr.repository StoreRef]
-           [org.alfresco.service.cmr.search SearchService]
-           [alfresco.core SimpleNode]))
+           [org.alfresco.service.cmr.search SearchService]))
 
 (defn search-service
   []
@@ -18,4 +16,4 @@
             SearchService/LANGUAGE_LUCENE q))
   ([store lang q]
      (with-open [rs (.query (search-service) store lang q)]
-       (doall (map c/j2c (.getNodeRefs rs))))))
+       (.getNodeRefs rs))))
