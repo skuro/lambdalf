@@ -22,8 +22,7 @@
 (defn read!
   "Returns a lazy seq of the content of the provided node"
   [node]
-  (let [noderef node
-        is (is noderef)]
+  (let [is (is node)]
     (map char (take-while #(not= -1 %) (repeatedly #(.read is))))))
 
 (extend-protocol Writer

@@ -71,8 +71,7 @@
                         (m/qname :cm/contains))
           assoc-name (if assoc
                        (m/qname assoc)
-                       (m/qname (keyword "cm" (or (props* "cm:name")
-                                                  (props* ContentModel/PROP_NAME)))))
+                       (m/qname (keyword "cm" (props* ContentModel/PROP_NAME))))
           ^ChildAssociationRef assoc-ref (.createNode (node-service)
                                                       node
                                                       assoc-qname
