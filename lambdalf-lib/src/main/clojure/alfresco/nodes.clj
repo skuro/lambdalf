@@ -14,9 +14,9 @@
 
 (defn company-home
   []
-  (a/as-admin (first (s/query StoreRef/STORE_REF_WORKSPACE_SPACESSTORE
-                              "xpath"
-                              "/app:company_home"))))
+  (first (s/query StoreRef/STORE_REF_WORKSPACE_SPACESSTORE
+                  "xpath"
+                  "/app:company_home")))
 (defprotocol Node
   "Clojure friendly interface for an Alfresco node"
   (aspect? [this aspect] "True if aspect is applied to the the current ")
