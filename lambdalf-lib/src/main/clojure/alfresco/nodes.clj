@@ -60,7 +60,7 @@
                                      (vals prop-map)))))
   (aspects [node] (into #{} (doall (map m/qname-str (.getAspects (node-service) node)))))
   
-  (dir? [node] (= (m/qname "cm:folder") (.getType (node-service) node)))
+  (dir? [node] (= (m/qname :cm/folder) (.getType (node-service) node)))
 
   (create-child-assoc
     [node {:keys [assoc-type assoc props type]}]
@@ -68,11 +68,11 @@
                          (vals props))
           assoc-qname (if assoc-type
                         (m/qname assoc-type)
-                        (m/qname "cm:contains"))
+                        (m/qname :cm/contains))
           assoc-name (if assoc
                        (m/qname assoc)
-                       (m/qname (str "cm:" (or (props* "cm:name")
-                                               (props* ContentModel/PROP_NAME)))))
+                       (m/qname (keyword "cm" (or (props* "cm:name")
+                                                  (props* ContentModel/PROP_NAME)))))
           ^ChildAssociationRef assoc-ref (.createNode (node-service)
                                                       node
                                                       assoc-qname

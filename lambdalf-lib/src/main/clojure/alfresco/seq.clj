@@ -12,7 +12,7 @@ the seq."
   (let [user (a/whoami)
         branch? (fn [x] (a/run-as user
                                  (m/qname-isa? (n/type-qname x)
-                                               (m/qname "cm:folder"))))
+                                               (m/qname :cm/folder))))
         children (fn [x] (a/run-as user
                                   (n/children x)))]
     (tree-seq branch? children root)))

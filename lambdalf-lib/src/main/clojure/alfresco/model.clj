@@ -22,7 +22,12 @@
    :else ::create)) ;; this will most likely always fail
 
 (defmulti qname
-  "Transforms the input parameter in a QName"
+  "Transforms the input parameter in a QName. Currently supported forms:
+   * QName objects
+   * :cm:name
+   * :cm/name
+   * \"cm:name\"
+   * \"{http://www.alfresco.org/model/content/1.0}name\""
   qname-dispatch
   :default ::create)
 
@@ -37,7 +42,9 @@
              (QName/createQName prefix name (namespace-service))))
 
 (defmethod qname ::from-keyword [k]
-           (qname (name k)))
+  (if-let [n (namespace k)]
+    (qname (str n ":" k))
+    (qname (name k))))
 
 (defn qname-str
   "Translates a QName into a human readable prefixed string"
