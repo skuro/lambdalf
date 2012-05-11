@@ -11,6 +11,12 @@
         Parent project for Lambdalf -- Clojure support for Alfresco
     </description>
 
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>6</version>
+    </parent>
+
     <organization>
         <name>Carlo Sciolla</name>
         <url>http://skuro.tk</url>
