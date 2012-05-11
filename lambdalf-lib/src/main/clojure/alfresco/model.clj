@@ -43,7 +43,7 @@
 
 (defmethod qname ::from-keyword [k]
   (if-let [n (namespace k)]
-    (qname (str n ":" k))
+    (qname (str n ":" (name k)))
     (qname (name k))))
 
 (defn qname-str
