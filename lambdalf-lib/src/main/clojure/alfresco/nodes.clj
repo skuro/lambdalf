@@ -3,8 +3,7 @@
             [alfresco.model :as m]
             [alfresco.search :as s]
             [alfresco.auth :as a])
-  (:import [alfresco.core SimpleNode]
-           [org.alfresco.model ContentModel]
+  (:import [org.alfresco.model ContentModel]
            [org.alfresco.service.cmr.repository ChildAssociationRef
             StoreRef
             NodeRef]))
@@ -12,18 +11,6 @@
 (defn node-service
   []
   (.getNodeService (c/alfresco-services)))
-
-(extend-protocol c/Clojurify
-  NodeRef
-  (j2c [^NodeRef n]
-       (SimpleNode. (.getId n)
-                    (str (.getStoreRef n))))
-  (c2j [^NodeRef n]
-       n)
-
-  SimpleNode
-  (j2c [^SimpleNode s] s)
-  (c2j [^SimpleNode s] (NodeRef. (str (.store s) "/" (.id s)))))
 
 (defn company-home
   []
@@ -64,16 +51,16 @@
      [k v])))
 
 (extend-protocol Node
-  SimpleNode
+  NodeRef
 
-  (aspect? [node aspect] (.hasAspect (node-service) (c/c2j node) (m/qname aspect)))
+  (aspect? [node aspect] (.hasAspect (node-service) node (m/qname aspect)))
 
-  (properties [node] (into {} (let [prop-map (.getProperties (node-service) (c/c2j node))]
+  (properties [node] (into {} (let [prop-map (.getProperties (node-service) node)]
                              (zipmap (map m/qname-str (keys prop-map))
                                      (vals prop-map)))))
-  (aspects [node] (into #{} (doall (map m/qname-str (.getAspects (node-service) (c/c2j node))))))
+  (aspects [node] (into #{} (doall (map m/qname-str (.getAspects (node-service) node)))))
   
-  (dir? [node] (= (m/qname "cm:folder") (.getType (node-service) (c/c2j node))))
+  (dir? [node] (= (m/qname "cm:folder") (.getType (node-service) node)))
 
   (create-child-assoc
     [node {:keys [assoc-type assoc props type]}]
@@ -87,7 +74,7 @@
                        (m/qname (str "cm:" (or (props* "cm:name")
                                                (props* ContentModel/PROP_NAME)))))
           ^ChildAssociationRef assoc-ref (.createNode (node-service)
-                                                      (c/c2j node)
+                                                      node
                                                       assoc-qname
                                                       assoc-name
                                                       (m/qname type)
@@ -95,39 +82,39 @@
      
       {:type assoc-qname
        :name assoc-name
-       :parent (c/j2c node)
-       :child (c/j2c (.getChildRef assoc-ref))}))
+       :parent node
+       :child (.getChildRef assoc-ref)}))
   
   (children
    [node]
    (into #{} (doall
-              (map #(c/j2c (.getChildRef %))
-                   (.getChildAssocs (node-service) (c/c2j node))))))
+              (map #(.getChildRef %)
+                   (.getChildAssocs (node-service) node)))))
 
   (parent
    [node]
-   (c/j2c (.getParentRef
-         (.getPrimaryParent (node-service) (c/c2j node)))))
+    (.getParentRef
+     (.getPrimaryParent (node-service) node)))
 
   (delete!
    [node]
-   (.deleteNode (node-service) (c/c2j node)))
+    (.deleteNode (node-service) node))
 
   (add-aspect!
    [node aspect props]
    (.addAspect (node-service)
-               (c/c2j node)
+               node
                (m/qname aspect)
                (zipmap (map m/qname (keys props))
                        (vals props))))  
 
   (del-aspect!
    [node aspect]
-   (.removeAspect (node-service) (c/c2j node) (m/qname aspect)))
+    (.removeAspect (node-service) node (m/qname aspect)))
 
   (property
    [node prop]
-   (.getProperty (node-service) (c/c2j node) (m/qname prop)))
+    (.getProperty (node-service) node (m/qname prop)))
 
 
 
@@ -139,12 +126,12 @@
          qnamed-map (zipmap (map m/qname (keys prop-map))
                             (vals prop-map))]
      
-     (.setProperties (node-service) (c/c2j node) qnamed-map)))
+     (.setProperties (node-service) node qnamed-map)))
 
   (type-qname
     [node]
-    (m/qname (.getType (node-service) (c/c2j node))))
+    (m/qname (.getType (node-service) node)))
 
   (set-type!
    [type node]
-   (.setType (node-service) (c/c2j node) (m/qname type))))
+    (.setType (node-service) node (m/qname type))))
