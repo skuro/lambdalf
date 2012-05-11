@@ -101,6 +101,15 @@
                     <exclude>**README-*</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/config</directory>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/config</directory>
+                <targetPath>alfresco/module/${groupId}.${artifactId}</targetPath>
+            </resource>
         </resources>
     </build>
     <profiles>
