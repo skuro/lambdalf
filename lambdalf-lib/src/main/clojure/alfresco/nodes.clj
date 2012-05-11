@@ -73,7 +73,7 @@
                                      (vals prop-map)))))
   (aspects [node] (into #{} (doall (map m/qname-str (.getAspects (node-service) (c/c2j node))))))
   
-  (dir? [node] (= (m/qname "cm:folder" (.getType (node-service) (c/c2j node)))))
+  (dir? [node] (= (m/qname "cm:folder") (.getType (node-service) (c/c2j node))))
 
   (create-child-assoc
     [node {:keys [assoc-type assoc props type]}]
