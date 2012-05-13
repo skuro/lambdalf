@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>lambdalf-parent</artifactId>
-    <groupId>it.sk.alfresco</groupId>
+    <groupId>tk.skuro.alfresco</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>it.sk.alfresco</groupId>
+  <groupId>tk.skuro.alfresco</groupId>
   <artifactId>lambdalf-lib</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>[clojar] Lambdalf -- Clojure support for Alfresco</name>
