@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>it.sk.alfresco</groupId>
+    <groupId>tk.skuro.alfresco</groupId>
     <artifactId>lambdalf-parent</artifactId>
     <packaging>pom</packaging>
     <name>[parent] Lambdalf -- Clojure support for Alfresco</name>
@@ -10,6 +10,12 @@
     <description>
         Parent project for Lambdalf -- Clojure support for Alfresco
     </description>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>6</version>
+    </parent>
 
     <organization>
         <name>Carlo Sciolla</name>
