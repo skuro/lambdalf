@@ -9,7 +9,7 @@
               RetryingTransactionHelper
               RetryingTransactionHelper$RetryingTransactionCallback]))
 
-(defn- retrying-txn-helper
+(defn retrying-txn-helper
   "The retrying transaction helper service bean."
   []
   (.getRetryingTransactionHelper (c/alfresco-services)))
