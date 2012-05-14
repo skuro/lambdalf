@@ -19,13 +19,6 @@
     <nrepl.version>0.2.0-beta2</nrepl.version>
   </properties>
 
-  <repositories>
-    <repository>
-        <id>unavailable-alfresco-jars</id>
-        <url>file://${project.basedir}/src/main/lib</url>
-    </repository>
-  </repositories>
-
   <build>
     <resources>
       <resource>
@@ -200,6 +193,32 @@
       <groupId>truezip</groupId>
       <artifactId>truezip</artifactId>
       <version>unknown</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.transaction</groupId>
+      <artifactId>transaction-api</artifactId>
+      <version>1.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- Following dependencies needed by the RetryingTransactionHelper: -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>3.2.6-patched</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.ibatis</groupId>
+      <artifactId>ibatis</artifactId>
+      <version>2.3.4.726-patched</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-core</artifactId>
+      <version>2.0.0</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>
