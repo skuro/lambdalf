@@ -210,7 +210,6 @@
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
-      <!-- Should be 3.0.4-patched but it doesn't exist in maven.alfresco.com -->
       <version>3.0.4</version>
       <scope>provided</scope>
     </dependency>

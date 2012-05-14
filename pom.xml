@@ -92,6 +92,10 @@
             <id>clojars.org</id>
             <url>http://clojars.org/repo</url>
         </repository>
+        <repository>
+          <id>distributed-artifacts</id>
+          <url>file://${project.basedir}/src/main/lib</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
