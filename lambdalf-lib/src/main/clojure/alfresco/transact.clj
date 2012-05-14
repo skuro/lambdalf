@@ -24,28 +24,30 @@
   []
   (.getTransactionService (c/alfresco-services)))
 
-(defmacro in-tx [& body]
+(defmacro in-tx
   "Runs the given forms within a read/write Alfresco transaction, automatically completing it (committing or rolling back), retrying and/or cleaning up as required. To force a rollback, simply throw an exception."
+  [& body]
   `(let [cb# (reify RetryingTransactionHelper$RetryingTransactionCallback
                (~'execute [~'this] ~@body))]
      (-> (transaction-service)
          (.getRetryingTransactionHelper)
          (.doInTransaction cb# false false))))  ; R/W transaction and does not require a new transaction
          
-(defmacro in-ro-tx [& body]
+(defmacro in-ro-tx
   "Runs the given forms within a read/only Alfresco transaction."
+  [& body]
   `(let [cb# (reify RetryingTransactionHelper$RetryingTransactionCallback
                (~'execute [~'this] ~@body))]
      (-> (transaction-service)
          (.getRetryingTransactionHelper)
          (.doInTransaction cb# true false))))  ; R/O transaction and does not require a new transaction
 
-; NOTE: THESE AREN'T EXPANDING PROPERLY!!
-; Need to read up more on how macros get expanded and when/where components within them get evaluated.
-(defmacro in-tx-as [user & body]
+(defmacro in-tx-as
   "Runs the given forms as the given user within a read/write Alfresco transaction."
-  `(a/run-as ~user (in-tx ~@body)))
+  [user & body]
+  `(alfresco.auth/run-as ~user (alfresco.transact/in-tx ~@body)))
   
-(defmacro in-ro-tx-as [user & body]
+(defmacro in-ro-tx-as
   "Runs the given forms as the given user within a read/only Alfresco transaction."
-  `(a/run-as ~user (in-ro-tx ~@body)))
+  [user & body]
+  `(alfresco.auth/run-as ~user (alfresco.transact/in-ro-tx ~@body)))
