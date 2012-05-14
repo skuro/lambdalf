@@ -46,4 +46,9 @@ Learn more
 ==========
 
 - my personal [blog](http://skuro.tk)
-- clojure support for spring [web scripts](https://github.com/skuro/spring-webscripts-addon-clojure) 
+- clojure support for spring [web scripts](https://github.com/skuro/spring-webscripts-addon-clojure)
+
+License
+=======
+[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+
