@@ -9,4 +9,4 @@
 
 (defn alfresco-services
   []
-  (get-bean  ServiceRegistry/SERVICE_REGISTRY))
+  (get-bean ServiceRegistry/SERVICE_REGISTRY))
