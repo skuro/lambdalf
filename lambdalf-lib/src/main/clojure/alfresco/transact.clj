@@ -71,3 +71,6 @@
   scope of the Alfresco transaction (which is probably not what's intended)."
   [user & body]
   `(alfresco.auth/run-as ~user (alfresco.transact/in-ro-tx ~@body)))
+  
+;TODO: ADD "as-fn" VERSIONS OF ABOVE FUNCTIONS (see alfresco.auth/run-as-fn for an example)
+;TODO: ADD BATCHING FUNCTIONS!
