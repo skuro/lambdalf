@@ -25,7 +25,11 @@
   (AuthenticationUtil/getAdminUserName))
 
 (defmacro run-as
-  "Runs the provided form while impersonating the given user"
+  "Runs the provided form while impersonating the given user.
+  WARNING: the form you pass to this macro should not return a lazy
+  sequence that include calls to repository functions, as when/if they are
+  eventually evaluated, the calls to those functions will occur outside the
+  scope of the authorisation context (which is probably not what's intended)."
   [user f]
   `(let [work# (reify AuthenticationUtil$RunAsWork
                      (~'doWork [~'this]
@@ -40,7 +44,11 @@
              ~f)))
 
 (defmacro as-admin
-  "Runs the provided form as admin"
+  "Runs the provided form as admin.
+  WARNING: the form you pass to this macro should not return a lazy
+  sequence that include calls to repository functions, as when/if they are
+  eventually evaluated, the calls to those functions will occur outside the
+  scope of the authorisation context (which is probably not what's intended)."
   [f]
   `(run-as (admin) ~f))
 

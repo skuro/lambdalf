@@ -25,7 +25,13 @@
   (.getTransactionService (c/alfresco-services)))
 
 (defmacro in-tx
-  "Runs the given forms within a read/write Alfresco transaction, automatically completing it (committing or rolling back), retrying and/or cleaning up as required. To force a rollback, simply throw an exception."
+  "Runs the given forms within a read/write Alfresco transaction, 
+  automatically completing it (committing or rolling back), retrying and/or
+  cleaning up as required. To force a rollback, simply throw an exception.
+  WARNING: the forms you pass to this macro should not return lazy
+  sequences that include calls to repository functions, as when/if they are
+  eventually evaluated, the calls to those functions will occur outside the
+  scope of the Alfresco transaction (which is probably not what's intended)."
   [& body]
   `(let [cb# (reify RetryingTransactionHelper$RetryingTransactionCallback
                (~'execute [~'this] ~@body))]
@@ -34,7 +40,11 @@
          (.doInTransaction cb# false false))))  ; R/W transaction and does not require a new transaction
          
 (defmacro in-ro-tx
-  "Runs the given forms within a read/only Alfresco transaction."
+  "Runs the given forms within a read/only Alfresco transaction.
+  WARNING: the forms you pass to this macro should not return lazy
+  sequences that include calls to repository functions, as when/if they are
+  eventually evaluated, the calls to those functions will occur outside the
+  scope of the Alfresco transaction (which is probably not what's intended)."
   [& body]
   `(let [cb# (reify RetryingTransactionHelper$RetryingTransactionCallback
                (~'execute [~'this] ~@body))]
@@ -43,11 +53,21 @@
          (.doInTransaction cb# true false))))  ; R/O transaction and does not require a new transaction
 
 (defmacro in-tx-as
-  "Runs the given forms as the given user within a read/write Alfresco transaction."
+  "Runs the given forms as the given user within a read/write Alfresco
+  transaction.
+  WARNING: the forms you pass to this macro should not return lazy
+  sequences that include calls to repository functions, as when/if they are
+  eventually evaluated, the calls to those functions will occur outside the
+  scope of the Alfresco transaction (which is probably not what's intended)."
   [user & body]
   `(alfresco.auth/run-as ~user (alfresco.transact/in-tx ~@body)))
   
 (defmacro in-ro-tx-as
-  "Runs the given forms as the given user within a read/only Alfresco transaction."
+  "Runs the given forms as the given user within a read/only Alfresco
+  transaction.
+  WARNING: the forms you pass to this macro should not return lazy
+  sequences that include calls to repository functions, as when/if they are
+  eventually evaluated, the calls to those functions will occur outside the
+  scope of the Alfresco transaction (which is probably not what's intended)."
   [user & body]
   `(alfresco.auth/run-as ~user (alfresco.transact/in-ro-tx ~@body)))
