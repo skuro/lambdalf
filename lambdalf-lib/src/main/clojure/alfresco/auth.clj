@@ -30,18 +30,18 @@
   sequence that include calls to repository functions, as when/if they are
   eventually evaluated, the calls to those functions will occur outside the
   scope of the authorisation context (which is probably not what's intended)."
-  [user f]
+  [user & f]
   `(let [work# (reify AuthenticationUtil$RunAsWork
                      (~'doWork [~'this]
-                               ~f))]
+                               ~@f))]
      (AuthenticationUtil/runAs work# ~user)))
 
 (defmacro run-as-fn
   "Returns a closure which will run with the provided user privileges"
-  [user f]
+  [user & f]
   `(fn []
      (run-as ~user
-             ~f)))
+             ~@f)))
 
 (defmacro as-admin
   "Runs the provided form as admin.
@@ -49,8 +49,8 @@
   sequence that include calls to repository functions, as when/if they are
   eventually evaluated, the calls to those functions will occur outside the
   scope of the authorisation context (which is probably not what's intended)."
-  [f]
-  `(run-as (admin) ~f))
+  [& f]
+  `(run-as (admin) ~@f))
 
 (defn whoami
   "Returns the currently valid user name"
