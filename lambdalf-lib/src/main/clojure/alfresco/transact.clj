@@ -17,9 +17,10 @@
   (:require [alfresco.core :as c]
             [alfresco.auth :as a])
   (:import [org.alfresco.repo.transaction RetryingTransactionHelper$RetryingTransactionCallback]
+           [org.alfresco.service.transaction TransactionService]
            [javax.transaction Status]))
 
-(defn transaction-service
+(defn ^TransactionService transaction-service
   "The retrying transaction helper service bean."
   []
   (.getTransactionService (c/alfresco-services)))

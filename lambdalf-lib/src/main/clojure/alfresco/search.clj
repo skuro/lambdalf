@@ -20,7 +20,7 @@
   (:import [org.alfresco.service.cmr.repository StoreRef]
            [org.alfresco.service.cmr.search SearchService]))
 
-(defn search-service
+(defn ^SearchService search-service
   []
   (.getSearchService (c/alfresco-services)))
 
