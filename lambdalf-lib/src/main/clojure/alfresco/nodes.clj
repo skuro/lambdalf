@@ -20,10 +20,11 @@
             [alfresco.auth :as a])
   (:import [org.alfresco.model ContentModel]
            [org.alfresco.service.cmr.repository ChildAssociationRef
+            NodeService
             StoreRef
             NodeRef]))
 
-(defn node-service
+(defn ^NodeService node-service
   []
   (.getNodeService (c/alfresco-services)))
 
@@ -70,9 +71,8 @@
 
   (aspect? [node aspect] (.hasAspect (node-service) node (m/qname aspect)))
 
-  (properties [node] (into {} (let [prop-map (.getProperties (node-service) node)]
-                             (zipmap (map m/qname-str (keys prop-map))
-                                     (vals prop-map)))))
+  (properties [node] (into {} (.getProperties (node-service) node)))
+  
   (aspects [node] (into #{} (doall (map m/qname-str (.getAspects (node-service) node)))))
   
   (dir? [node] (= (m/qname :cm/folder) (.getType (node-service) node)))
@@ -130,16 +130,12 @@
    [node prop]
     (.getProperty (node-service) node (m/qname prop)))
 
-
-
   (set-properties!
    [node & prop-defs]
    {:pre [(or (nil? prop-defs) (even? (count prop-defs)))]}
-   (let [current-props (properties node)
-         prop-map (merge current-props (defs2map prop-defs))
-         qnamed-map (zipmap (map m/qname (keys prop-map))
+    (let [prop-map (defs2map prop-defs)
+          qnamed-map (zipmap (map m/qname (keys prop-map))
                             (vals prop-map))]
-     
      (.setProperties (node-service) node qnamed-map)))
 
   (type-qname
