@@ -45,7 +45,7 @@
         <dependency>
             <groupId>org.springframework.extensions.surf</groupId>
             <artifactId>spring-surf</artifactId>
-            <version>1.0.0.CI-SNAPSHOT</version>
+            <version>${spring.surf.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- Don't add here amp dependencies as it will break amp packaging -->

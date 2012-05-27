@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/skuro/lambdalf.png?branch=master)](http://travis-ci.org/skuro/lambdalf)
+[![Build Status](https://secure.travis-ci.org/skuro/lambdalf.png?branch=alf3x)](http://travis-ci.org/skuro/lambdalf)
 
 Lambdalf -- Alfresco with a Clojure taste
 =========================================
@@ -49,3 +49,7 @@ Learn more
 
 - my personal [blog](http://skuro.tk)
 - clojure support for spring [web scripts](https://github.com/skuro/spring-webscripts-addon-clojure)
+
+License
+=======
+[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
