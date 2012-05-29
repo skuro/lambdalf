@@ -131,6 +131,12 @@
             </dependency>
             <dependency>
                 <groupId>org.alfresco</groupId>
+                <artifactId>alfresco-mbeans</artifactId>
+                <version>${alfresco.version}</version>
+                <classifier>${alfresco.classifier}</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.alfresco</groupId>
                 <artifactId>alfresco-remote-api</artifactId>
                 <version>${alfresco.version}</version>
             </dependency>

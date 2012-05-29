@@ -24,6 +24,6 @@
   [bean]
   (. (ContextHelper/getApplicationContext) getBean bean))
  
-(defn alfresco-services
+(defn ^ServiceRegistry alfresco-services
   []
   (get-bean ServiceRegistry/SERVICE_REGISTRY))
