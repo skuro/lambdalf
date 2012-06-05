@@ -14,16 +14,19 @@
 ; limitations under the License.
  
 (ns alfresco.core
-    (:import (it.sk.alfresco.clojure ContextHelper)
-             (org.alfresco.service ServiceRegistry)))
+  (:import (it.sk.alfresco.clojure ContextHelper)
+           (org.springframework.context ApplicationContext)
+           (org.alfresco.service ServiceRegistry)))
 
 (set! *warn-on-reflection* true)
 
 (defn get-bean
   "Yields the instance of a spring managed bean"
   [bean]
-  (. (ContextHelper/getApplicationContext) getBean bean))
+  (let [^ApplicationContext ctx (ContextHelper/getApplicationContext)]
+    (. ctx getBean bean)))
  
 (defn ^ServiceRegistry alfresco-services
+  "Exposes the Alfresco ServiceRegistry to get access to the Foundation API"
   []
   (get-bean ServiceRegistry/SERVICE_REGISTRY))
