@@ -22,7 +22,7 @@
 (defn get-bean
   "Yields the instance of a spring managed bean"
   [bean]
-  (. (ContextHelper/getApplicationContext) getBean bean))
+  (.getBean (ContextHelper/getApplicationContext) bean))
  
 (defn ^ServiceRegistry alfresco-services
   []

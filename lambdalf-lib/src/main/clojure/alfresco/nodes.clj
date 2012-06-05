@@ -1,5 +1,5 @@
 ;
-; Copyright (C) 2011,2012 Carlo Sciolla
+; Copyright (C) 2011,2012 Carlo Sciolla, Peter Monks
 ;
 ; Licensed under the Apache License, Version 2.0 (the "License");
 ; you may not use this file except in compliance with the License.
@@ -19,20 +19,25 @@
             [alfresco.search :as s]
             [alfresco.auth :as a])
   (:import [org.alfresco.model ContentModel]
+           [org.alfresco.repo.site SiteModel
+                                   DocLibNodeLocator]
            [org.alfresco.service.cmr.repository ChildAssociationRef
-            NodeService
-            StoreRef
-            NodeRef]))
+                                                NodeService
+                                                StoreRef
+                                                NodeRef]
+           [org.alfresco.repo.nodelocator NodeLocatorService
+                                          CompanyHomeNodeLocator
+                                          UserHomeNodeLocator
+                                          SitesHomeNodeLocator]))
 
 (defn ^NodeService node-service
   []
   (.getNodeService (c/alfresco-services)))
 
-(defn company-home
+(defn ^NodeLocatorService node-locator-service
   []
-  (first (s/query StoreRef/STORE_REF_WORKSPACE_SPACESSTORE
-                  "xpath"
-                  "/app:company_home")))
+  (.getNodeLocatorService (c/alfresco-services)))
+  
 (defprotocol Node
   "Clojure friendly interface for an Alfresco node"
   (aspect? [this aspect] "True if aspect is applied to the the current ")
@@ -40,7 +45,8 @@
   (property [this prop] "Retrieves a property from a node")
   (set-properties! [this & prop-defs] "Set properties on a node")
   (aspects [this] "Provides all the aspect QNames of this node")
-  (dir? [this] "True if the node is of type or subtype of cm:folder ")
+  (dir? [this] "True if the node is of type or a subtype of cm:folder")
+  (site? [this] "True if the node is of type or a subtype of st:site")
   (create-child-assoc [this propmap] "Creates a new node. Accepts a map containing the following parameters:
    - assoc-type : OPTIONAL - the association type. Defaults to cm:contains
    - assoc : OPTIONAL - the association name. Defaults to the new node cm:name
@@ -55,6 +61,28 @@
   (del-aspect! [this aspect] "Removes an aspect from a node")
   (type-qname [this] "Returns the qname of the provided node's type")
   (set-type! [this type] "Sets the provided type onto the node. Yields nil"))
+
+(defn ^Node company-home
+  "Returns the 'Company Home' node."
+  []
+  (.getNode (node-locator-service) CompanyHomeNodeLocator/NAME nil nil))
+
+(defn ^Node user-home
+  "Return the node that contains the current user's home node."
+  []
+  (.getNode (node-locator-service) UserHomeNodeLocator/NAME nil nil))
+
+(defn ^Node sites-home
+  "Return the node that contains Share Sites."
+  []
+  (.getNode (node-locator-service) SitesHomeNodeLocator/NAME nil nil))
+
+(defn ^Node doc-lib
+  "Returns the document Library for the given site, or Company Home if the given site does not have a document library.
+  Note: the provided node must be a valid site."
+  [site]
+  {:pre [(site? site)]}
+  (.getNode (node-locator-service) DocLibNodeLocator/NAME site nil))
 
 (defn defs2map
   "Creates a map out of a vararg parameter definition, e.g.:
@@ -75,7 +103,9 @@
   
   (aspects [node] (into #{} (doall (map m/qname-str (.getAspects (node-service) node)))))
   
-  (dir? [node] (= (m/qname :cm/folder) (.getType (node-service) node)))
+  (dir? [node] (= (m/qname ContentModel/TYPE_FOLDER) (.getType (node-service) node)))
+
+  (site? [node] (= (m/qname SiteModel/TYPE_SITE) (.getType (node-service) node)))
 
   (create-child-assoc
     [node {:keys [assoc-type assoc props type]}]
@@ -83,7 +113,7 @@
                          (vals props))
           assoc-qname (if assoc-type
                         (m/qname assoc-type)
-                        (m/qname :cm/contains))
+                        (m/qname ContentModel/ASSOC_CONTAINS))
           assoc-name (if assoc
                        (m/qname assoc)
                        (m/qname (keyword "cm" (props* ContentModel/PROP_NAME))))
