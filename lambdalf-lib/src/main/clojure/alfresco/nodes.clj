@@ -78,7 +78,7 @@
   (.getNode (node-locator-service) SitesHomeNodeLocator/NAME nil nil))
 
 (defn ^Node doc-lib
-  "Returns the document Library for the given site, or Company Home if the given site does not have a document library.
+  "Returns the Document Library for the given site, or Company Home if the given site does not have a document library.
   Note: the provided node must be a valid site."
   [site]
   {:pre [(site? site)]}
