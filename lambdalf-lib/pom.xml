@@ -177,7 +177,8 @@
     <dependency>
       <groupId>acegisecurity</groupId>
       <artifactId>acegi-security</artifactId>
-      <version>0.8.2-patched</version>
+      <version>0.8.2</version>
+      <classifier>patched</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
