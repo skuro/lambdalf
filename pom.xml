@@ -166,6 +166,15 @@
                 <artifactId>truezip</artifactId>
                 <version>unknown</version>
             </dependency>
+            <!--
+            override JTA to be 1.0.1b instead of 1.0.1B
+            needed for hibernate 3.2.6-patched, might be fixed in artifacts.alfresco.com soon
+            -->
+            <dependency>
+                <groupId>javax.transaction</groupId>
+                <artifactId>jta</artifactId>
+                <version>1.0.1b</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
