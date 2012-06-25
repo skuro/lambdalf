@@ -211,7 +211,8 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate</artifactId>
-      <version>3.2.6-patched</version>
+      <version>3.2.6.ga</version>
+      <classifier>patched</classifier>
       <scope>provided</scope>
     </dependency>
     <dependency>
