@@ -100,11 +100,11 @@
     <pluginRepositories>
         <pluginRepository>
             <id>alfresco-public</id>
-            <url>http://maven.alfresco.com/nexus/content/groups/public</url>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>
         </pluginRepository>
         <pluginRepository>
             <id>alfresco-public-snapshots</id>
-            <url>http://maven.alfresco.com/nexus/content/groups/public-snapshots</url>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public-snapshots</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
