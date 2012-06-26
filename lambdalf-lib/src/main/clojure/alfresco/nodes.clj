@@ -133,7 +133,7 @@
   (children
    [node]
    (into #{} (doall
-              (map #(.getChildRef %)
+              (map (fn [^ChildAssociationRef x] (.getChildRef x))
                    (.getChildAssocs (node-service) node)))))
 
   (parent
