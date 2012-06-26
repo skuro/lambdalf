@@ -62,22 +62,22 @@
   (type-qname [this] "Returns the qname of the provided node's type")
   (set-type! [this type] "Sets the provided type onto the node. Yields nil"))
 
-(defn ^Node company-home
+(defn company-home
   "Returns the 'Company Home' node."
   []
   (.getNode (node-locator-service) CompanyHomeNodeLocator/NAME nil nil))
 
-(defn ^Node user-home
+(defn user-home
   "Return the node that contains the current user's home node."
   []
   (.getNode (node-locator-service) UserHomeNodeLocator/NAME nil nil))
 
-(defn ^Node sites-home
+(defn sites-home
   "Return the node that contains Share Sites."
   []
   (.getNode (node-locator-service) SitesHomeNodeLocator/NAME nil nil))
 
-(defn ^Node doc-lib
+(defn doc-lib
   "Returns the Document Library for the given site, or Company Home if the given site does not have a document library.
   Note: the provided node must be a valid site."
   [site]
