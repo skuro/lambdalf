@@ -18,7 +18,11 @@
            (org.springframework.context ApplicationContext)
            (org.alfresco.service ServiceRegistry)))
 
-(set! *warn-on-reflection* true)
+(defn warnings-on []
+  (set! *warn-on-reflection* true))
+
+(defn warnings-off []
+  (set! *warn-on-reflection* false))
 
 (defn get-bean
   "Yields the instance of a spring managed bean"
