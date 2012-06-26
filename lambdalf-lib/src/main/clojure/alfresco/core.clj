@@ -16,6 +16,7 @@
 (ns alfresco.core
   (:import (it.sk.alfresco.clojure ContextHelper)
            (org.springframework.context ApplicationContext)
+           (org.springframework.beans.factory BeanFactory)
            (org.alfresco.service ServiceRegistry)))
 
 (defn warnings-on []
@@ -27,7 +28,7 @@
 (defn get-bean
   "Yields the instance of a spring managed bean"
   [bean]
-  (let [^ApplicationContext ctx (ContextHelper/getApplicationContext)]
+  (let [^BeanFactory ctx (ContextHelper/getApplicationContext)]
     (. ctx getBean bean)))
  
 (defn ^ServiceRegistry alfresco-services
