@@ -17,27 +17,19 @@
   (:require [alfresco.core :as c]
             [alfresco.model :as m]
             [alfresco.search :as s]
-            [alfresco.auth :as a])
+            [alfresco.auth :as a]
+            [alfresco.transact :as t])
   (:import [org.alfresco.model ContentModel]
-           [org.alfresco.repo.site SiteModel
-                                   DocLibNodeLocator]
+           [org.alfresco.repo.site SiteModel]
            [org.alfresco.service.cmr.repository ChildAssociationRef
                                                 NodeService
                                                 StoreRef
-                                                NodeRef]
-           [org.alfresco.repo.nodelocator NodeLocatorService
-                                          CompanyHomeNodeLocator
-                                          UserHomeNodeLocator
-                                          SitesHomeNodeLocator]))
+                                                NodeRef]))
 
 (defn ^NodeService node-service
   []
   (.getNodeService (c/alfresco-services)))
 
-(defn ^NodeLocatorService node-locator-service
-  []
-  (.getNodeLocatorService (c/alfresco-services)))
-  
 (defprotocol Node
   "Clojure friendly interface for an Alfresco node"
   (aspect? [this aspect] "True if aspect is applied to the the current ")
@@ -62,27 +54,36 @@
   (type-qname [this] "Returns the qname of the provided node's type")
   (set-type! [this type] "Sets the provided type onto the node. Yields nil"))
 
-(defn ^Node company-home
+(defn company-home
   "Returns the 'Company Home' node."
   []
-  (.getNode (node-locator-service) CompanyHomeNodeLocator/NAME nil nil))
+  (first (s/query StoreRef/STORE_REF_WORKSPACE_SPACESSTORE
+                  "xpath"
+                  "/app:company_home")))
 
-(defn ^Node user-home
+(defn user-home
   "Return the node that contains the current user's home node."
   []
-  (.getNode (node-locator-service) UserHomeNodeLocator/NAME nil nil))
+  (t/in-ro-tx
+   (let [person-service (.getPersonService  (c/alfresco-services))]
+     (-> (.getPerson person-service (a/whoami))
+         (property ContentModel/PROP_HOMEFOLDER)))))
 
-(defn ^Node sites-home
-  "Return the node that contains Share Sites."
-  []
-  (.getNode (node-locator-service) SitesHomeNodeLocator/NAME nil nil))
-
-(defn ^Node doc-lib
-  "Returns the Document Library for the given site, or Company Home if the given site does not have a document library.
+(defn doc-lib
+  "Returns the Document Library for the given site, or Company Home if the given site does not have   a document library.
   Note: the provided node must be a valid site."
   [site]
-  {:pre [(site? site)]}
-  (.getNode (node-locator-service) DocLibNodeLocator/NAME site nil))
+  {:pre (site? site)}
+  (t/in-ro-tx
+   (or (let [site-service (.getSiteService (c/alfresco-services))
+             site (.getSite site-service site)]
+         (.getContainer site-service (.getShortName site) "documentLibrary"))
+       (company-home))))
+
+(defn sites-home
+  "Return the node that contains Share Sites."
+  []
+  (first (s/query "TYPE:\"st:sites\"")))
 
 (defn defs2map
   "Creates a map out of a vararg parameter definition, e.g.:
