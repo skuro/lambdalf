@@ -18,7 +18,7 @@
         <env>local</env>
         <!-- Webapp used to test/develop locally the AMP -->
         <webapp.name>${project.artifactId}-webapp</webapp.name>
-        <alfresco.data.location>/var/alfresco/lambdalf3x</alfresco.data.location>
+        <alfresco.data.location>${project.build.directory}/lambdalf_data</alfresco.data.location>
         <alfresco.db.name>lambdalf</alfresco.db.name>
         <alfresco.db.username>alfresco</alfresco.db.username>
         <alfresco.db.password>alfresco</alfresco.db.password>
