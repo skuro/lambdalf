@@ -16,8 +16,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <swank-clojure.version>1.4.2</swank-clojure.version>
-    <nrepl.version>0.2.0-beta2</nrepl.version>
+    <swank-clojure.version>1.4.2</swank-clojure.version>   <!-- Note: latest version is 1.4.4, but it's not in clojars yet -->
+    <nrepl.version>0.2.0-beta8</nrepl.version>
   </properties>
 
   <build>
