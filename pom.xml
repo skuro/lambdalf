@@ -93,8 +93,8 @@
             <url>http://clojars.org/repo</url>
         </repository>
         <repository>
-          <id>distributed-artifacts</id>
-          <url>file://${project.basedir}/src/main/lib</url>
+            <id>distributed-artifacts</id>
+            <url>file://${project.basedir}/src/main/lib</url>
         </repository>
     </repositories>
 
@@ -110,6 +110,10 @@
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
             </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>clojars.org</id>
+            <url>http://clojars.org/repo</url>
         </pluginRepository>
     </pluginRepositories>
 

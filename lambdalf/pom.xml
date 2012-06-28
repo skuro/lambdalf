@@ -48,11 +48,40 @@
             <version>${spring.surf.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!--
+          This is the alfresco version you're testing the AMP against. Don't
+          remove if you want jetty to be able to deploy a WAR :)
+        -->
+        <dependency>
+            <groupId>org.alfresco</groupId>
+            <artifactId>alfresco</artifactId>
+            <version>${alfresco.version}</version>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>clj-http</groupId>
+            <artifactId>clj-http</artifactId>
+            <version>0.4.3</version>
+            <scope>test</scope>
+        </dependency>
+        <!--
+            <dependency>
+              <groupId>org.springframework.extensions.surf</groupId>
+              <artifactId>spring-webscripts</artifactId>
+              <version>1.0.0.CI-SNAPSHOT</version>
+              <scope>provided</scope>
+            </dependency>
+        -->
         <!-- Don't add here amp dependencies as it will break amp packaging -->
     </dependencies>
 
 
     <build>
+        <filters>
+            <filter>src/test/properties/${env}/alfresco-global.properties</filter>
+        </filters>
+
         <plugins>
             <plugin>
                 <artifactId>maven-nosnapshot-plugin</artifactId>
@@ -79,6 +108,100 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <!-- Runs war packaging when 'integration-test' phase is called -->
+                    <execution>
+                        <id>it</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+                        <configuration>
+                            <archiveClasses>true</archiveClasses>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <primaryArtifact>false</primaryArtifact>
+                    <!--
+                      Don't remove the following line otherwise WAR and AMP builds
+                      will be done in the same folder, with unexpected results
+                    -->
+                    <webappDirectory>${project.build.directory}/${webapp.name}</webappDirectory>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                    <warSourceExcludes>licenses/**</warSourceExcludes>
+                    <webResources>
+                        <resource>
+                            <directory>${project.build.testOutputDirectory}</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </resource>
+                        <!-- Here we add default this AMP web/ resources-->
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <targetPath>WEB-INF/licenses</targetPath>
+                            <includes>
+                                <include>licenses/*.*</include>
+                            </includes>
+                            <filtering>false</filtering>
+                        </resource>
+                        <resource>
+                            <directory>src/test/webapp</directory>
+                            <targetPath>WEB-INF</targetPath>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+                <dependencies>
+                    <!--
+                    This is required to be re-defined explicitly at plugin level as
+                    otherwise the 'amp' extension unArchiver won't be available to
+                    the maven-war-plugin
+                    -->
+                    <dependency>
+                        <groupId>org.alfresco.maven.plugin</groupId>
+                        <artifactId>maven-amp-plugin</artifactId>
+                        <version>${amp.plugin.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.26</version>
+                <configuration>
+                    <contextPath>/${webapp.name}</contextPath>
+                    <webApp>${project.build.directory}/${webapp.name}</webApp>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>9090</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>tk.skuro.alfresco</groupId>
+                        <artifactId>h2-support</artifactId>
+                        <version>${alfresco.h2.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.3.158</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
         <!--
             Copies and filters resources in build folder so maven-amp-plugin can
@@ -103,6 +226,29 @@
                 <targetPath>alfresco/module/${project.groupId}.${project.artifactId}</targetPath>
             </resource>
         </resources>
+        <testResources>
+            <!-- Includes default properties for alfresco test war -->
+            <testResource>
+                <filtering>true</filtering>
+                <directory>src/test/properties/${env}</directory>
+            </testResource>
+
+            <!--
+              src/main/config/ is copied into ==>
+              target/test-classes/alfresco/module/it.sk.alfresco.lambdalf to be
+              picked up by the maven-war plugin Best practice taken from
+              records management.amp, is enforced throughout the whole archetype.
+              This convention is also used for module.properties filtering.
+            -->
+            <testResource>
+                <filtering>true</filtering>
+                <directory>.</directory>
+                <includes>
+                    <include>module.properties</include>
+                </includes>
+                <targetPath>alfresco/module/${groupId}.${artifactId}</targetPath>
+            </testResource>
+        </testResources>
     </build>
     <profiles>
         <!--
@@ -110,11 +256,60 @@
             embedded
         -->
         <profile>
+            <id>functional-tests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>maven-jetty-plugin</artifactId>
+                        <version>6.1.26</version>
+                        <configuration>
+                            <stopPort>9999</stopPort>
+                            <stopKey>lambdalf</stopKey>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-container-ftest</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run-exploded</goal>
+                                </goals>
+                                <configuration>
+                                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                                    <daemon>true</daemon>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-container-ftest</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.theoryinpractise</groupId>
+                        <artifactId>clojure-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>clojure-ftest</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>webapp</id>
             <build>
-                <filters>
-                    <filter>src/test/properties/${env}/alfresco-global.properties</filter>
-                </filters>
                 <defaultGoal>jetty:run-exploded</defaultGoal>
                 <plugins>
                     <plugin>
@@ -134,84 +329,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                        <dependencies>
-                            <!--
-                              This is required to be re-defined explicitly at plugin level as
-                              otherwise the 'amp' extension unArchiver won't be available to
-                              the maven-dependency-plugin
-                            -->
-                            <dependency>
-                                <groupId>org.alfresco.maven.plugin</groupId>
-                                <artifactId>maven-amp-plugin</artifactId>
-                                <version>${amp.plugin.version}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>2.1</version>
-                        <executions>
-                            <!-- Runs war packaging when 'integration-test' phase is called -->
-                            <execution>
-                                <id>it</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>exploded</goal>
-                                </goals>
-                                <configuration>
-                                    <archiveClasses>true</archiveClasses>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <primaryArtifact>false</primaryArtifact>
-                            <!--
-                              Don't remove the following line otherwise WAR and AMP builds
-                              will be done in the same folder, with unexpected results
-                            -->
-                            <webappDirectory>${project.build.directory}/${webapp.name}</webappDirectory>
-                            <archive>
-                                <addMavenDescriptor>false</addMavenDescriptor>
-                            </archive>
-                            <warSourceExcludes>licenses/**</warSourceExcludes>
-                            <webResources>
-                                <resource>
-                                    <directory>${project.build.testOutputDirectory}</directory>
-                                    <targetPath>WEB-INF/classes</targetPath>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>**</include>
-                                    </includes>
-                                </resource>
-                                <!-- Here we add default this AMP web/ resources-->
-                                <resource>
-                                    <directory>src/main/webapp</directory>
-                                    <targetPath>WEB-INF/licenses</targetPath>
-                                    <includes>
-                                        <include>licenses/*.*</include>
-                                    </includes>
-                                    <filtering>false</filtering>
-                                </resource>
-                                <resource>
-                                    <directory>src/test/webapp</directory>
-                                    <targetPath>WEB-INF</targetPath>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                        <dependencies>
-                            <!--
-                              This is required to be re-defined explicitly at plugin level as
-                              otherwise the 'amp' extension unArchiver won't be available to
-                              the maven-war-plugin
-                              -->
-                            <dependency>
-                                <groupId>org.alfresco.maven.plugin</groupId>
-                                <artifactId>maven-amp-plugin</artifactId>
-                                <version>${amp.plugin.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.mortbay.jetty</groupId>
@@ -225,31 +342,8 @@
                                 <goals>
                                     <goal>run-exploded</goal>
                                 </goals>
-                                <configuration>
-                                    <contextPath>/${webapp.name}</contextPath>
-                                    <webApp>${project.build.directory}/${webapp.name}</webApp>
-                                    <scanIntervalSeconds>10</scanIntervalSeconds>
-                                    <connectors>
-                                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                                            <port>9090</port>
-                                            <maxIdleTime>60000</maxIdleTime>
-                                        </connector>
-                                    </connectors>
-                                </configuration>
                             </execution>
                         </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>tk.skuro.alfresco</groupId>
-                                <artifactId>h2-support</artifactId>
-                                <version>${alfresco.h2.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>com.h2database</groupId>
-                                <artifactId>h2</artifactId>
-                                <version>1.3.158</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
                 <!--
@@ -258,42 +352,7 @@
                   the application.properties file is filtered with alfresco.db.name
                   and alf.data.location POM properties as default configuration
                 -->
-                <testResources>
-                    <!-- Includes default properties  for alfresco test war -->
-                    <testResource>
-                        <filtering>true</filtering>
-                        <directory>src/test/properties/${env}</directory>
-                    </testResource>
-
-                    <!--
-                      src/main/config/ is copied into ==>
-                      target/test-classes/alfresco/module/it.sk.alfresco.lambdalf to be
-                      picked up by the maven-war plugin Best practice taken from
-                      records management.amp, is enforced throughout the whole archetype.
-                      This convention is also used for module.properties filtering.
-                    -->
-                    <testResource>
-                        <filtering>true</filtering>
-                        <directory>.</directory>
-                        <includes>
-                            <include>module.properties</include>
-                        </includes>
-                        <targetPath>alfresco/module/${project.groupId}.${project.artifactId}</targetPath>
-                    </testResource>
-                </testResources>
             </build>
-            <dependencies>
-                <!--
-                  This is the alfresco version you're testing the AMP against. Don't
-                  remove if you want jetty to be able to deploy a WAR :)
-                -->
-                <dependency>
-                    <groupId>org.alfresco</groupId>
-                    <artifactId>alfresco</artifactId>
-                    <version>${alfresco.version}</version>
-                    <type>war</type>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
 </project>
