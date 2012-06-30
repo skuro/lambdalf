@@ -151,31 +151,26 @@
       <groupId>org.alfresco</groupId>
       <artifactId>alfresco-core</artifactId>
       <scope>provided</scope>
-      <classifier>${alfresco.classifier}</classifier>
     </dependency>
     <dependency>
       <groupId>org.alfresco</groupId>
-      <artifactId>alfresco-datamodel</artifactId>
+      <artifactId>alfresco-data-model</artifactId>
       <scope>provided</scope>
-      <classifier>${alfresco.classifier}</classifier>
     </dependency>
     <dependency>
       <groupId>org.alfresco</groupId>
       <artifactId>alfresco-mbeans</artifactId>
       <scope>provided</scope>
-      <classifier>${alfresco.classifier}</classifier>
     </dependency>
     <dependency>
       <groupId>org.alfresco</groupId>
       <artifactId>alfresco-remote-api</artifactId>
       <scope>provided</scope>
-      <classifier>${alfresco.classifier}</classifier>
     </dependency>
     <dependency>
       <groupId>org.alfresco</groupId>
       <artifactId>alfresco-repository</artifactId>
       <scope>provided</scope>
-      <classifier>${alfresco.classifier}</classifier>
     </dependency>
     <dependency>
       <groupId>acegisecurity</groupId>

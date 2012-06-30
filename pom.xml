@@ -65,8 +65,7 @@
     </modules>
 
     <properties>
-        <alfresco.version>4.0.b</alfresco.version>
-        <alfresco.classifier>community</alfresco.classifier>
+        <alfresco.version>4.0.d</alfresco.version>
         <spring.version>3.0.5.RELEASE</spring.version>
         <spring.surf.version>1.0.0</spring.surf.version>
         <clojure.version>1.4.0</clojure.version>
@@ -129,31 +128,26 @@
                 <groupId>org.alfresco</groupId>
                 <artifactId>alfresco-core</artifactId>
                 <version>${alfresco.version}</version>
-                <classifier>${alfresco.classifier}</classifier>
             </dependency>
             <dependency>
                 <groupId>org.alfresco</groupId>
-                <artifactId>alfresco-datamodel</artifactId>
+                <artifactId>alfresco-data-model</artifactId>
                 <version>${alfresco.version}</version>
-                <classifier>${alfresco.classifier}</classifier>
             </dependency>
             <dependency>
                 <groupId>org.alfresco</groupId>
                 <artifactId>alfresco-mbeans</artifactId>
                 <version>${alfresco.version}</version>
-                <classifier>${alfresco.classifier}</classifier>
             </dependency>
             <dependency>
                 <groupId>org.alfresco</groupId>
                 <artifactId>alfresco-remote-api</artifactId>
                 <version>${alfresco.version}</version>
-                <classifier>${alfresco.classifier}</classifier>
             </dependency>
             <dependency>
                 <groupId>org.alfresco</groupId>
                 <artifactId>alfresco-repository</artifactId>
                 <version>${alfresco.version}</version>
-                <classifier>${alfresco.classifier}</classifier>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
