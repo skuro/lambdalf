@@ -325,7 +325,7 @@
                                 <id>clojure-ftest</id>
                                 <phase>integration-test</phase>
                                 <goals>
-                                    <goal>test</goal>
+                                    <goal>test-with-junit</goal>
                                 </goals>
                             </execution>
                         </executions>
