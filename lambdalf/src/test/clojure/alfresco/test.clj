@@ -47,7 +47,7 @@
   `(deftest ~name
      (with-open [transport# (connect :port 7888)]
        (let [~'transport transport#
-             ~'client (client transport# 1000)
+             ~'client (client transport# 10000)
              ~'session (client-session ~'client)
              ~'repl-eval #(message % {:op :eval :code %2})
              ~'repl-value (comp read-string :value first)
