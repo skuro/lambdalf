@@ -13,13 +13,11 @@
 ; See the License for the specific language governing permissions and
 ; limitations under the License.
 
-(ns envtest
-  (:use [clojure.test])
+(ns alfresco.test.envtest
+  (:use [clojure.test]
+        [alfresco.test])
   (:require [clj-http.client :as http]))
 
-(def lambdalf-url "http://localhost:9090/lambdalf-webapp")
-
 (deftest can-connect
-  (let [response (http/get (str lambdalf-url "/service/index")
-                           {:basic-auth ["admin" "admin"]})]
+  (let [response (call-wscript "/index")]
     (is (= 200 (:status response)))))

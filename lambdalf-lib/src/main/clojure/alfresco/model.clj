@@ -66,6 +66,14 @@
   [^QName q]
   (.toPrefixString q (namespace-service)))
 
+(defn qname-keyword
+  "Translate a QName into a Clojure keyword"
+  [^QName q]
+  (let [qstr (.split (qname-str q) ":")
+        qns (aget qstr 0)
+        qval (aget qstr 1)]
+    (keyword qns qval)))
+
 (defn in?
   "True if the qname is within ns. ns can be either short or long format."
   [ns ^QName qname]
