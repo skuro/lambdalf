@@ -4,15 +4,15 @@
 ; Licensed under the Apache License, Version 2.0 (the "License");
 ; you may not use this file except in compliance with the License.
 ; You may obtain a copy of the License at
-; 
+;
 ;     http://www.apache.org/licenses/LICENSE-2.0
-;  
+;
 ; Unless required by applicable law or agreed to in writing, software
 ; distributed under the License is distributed on an "AS IS" BASIS,
 ; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ; See the License for the specific language governing permissions and
 ; limitations under the License.
- 
+
 (ns alfresco.nodes
   (:require [alfresco.core :as c]
             [alfresco.model :as m]
@@ -37,7 +37,7 @@
 (defn ^NodeLocatorService node-locator-service
   []
   (.getNodeLocatorService (c/alfresco-services)))
-  
+
 (defprotocol Node
   "Clojure friendly interface for an Alfresco node"
   (aspect? [this aspect] "True if aspect is applied to the the current ")
@@ -94,15 +94,25 @@
   (apply conj {} (for [[k v] (apply partition 2 varargs)]
      [k v])))
 
+(defn s2n
+  "Converts a String to a NodeRef."
+  [s]
+  (NodeRef. s))
+
+(defn n2s
+  "Converts a NodeRef to a String."
+  [n]
+  (.toString n))
+
 (extend-protocol Node
   NodeRef
 
   (aspect? [node aspect] (.hasAspect (node-service) node (m/qname aspect)))
 
   (properties [node] (into {} (.getProperties (node-service) node)))
-  
+
   (aspects [node] (into #{} (doall (map m/qname-str (.getAspects (node-service) node)))))
-  
+
   (dir? [node] (= (m/qname ContentModel/TYPE_FOLDER) (.getType (node-service) node)))
 
   (site? [node] (= (m/qname SiteModel/TYPE_SITE) (.getType (node-service) node)))
@@ -123,12 +133,12 @@
                                                       assoc-name
                                                       (m/qname type)
                                                       props*)]
-     
+
       {:type assoc-qname
        :name assoc-name
        :parent node
        :child (.getChildRef assoc-ref)}))
-  
+
   (children
    [node]
    (into #{} (doall
@@ -150,7 +160,7 @@
                node
                (m/qname aspect)
                (zipmap (map m/qname (keys props))
-                       (vals props))))  
+                       (vals props))))
 
   (del-aspect!
    [node aspect]
