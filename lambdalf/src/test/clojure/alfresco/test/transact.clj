@@ -44,4 +44,4 @@
 
          ; Grab the first Share site and validate that it is indeed a Share site
          true repl-value (t/in-ro-tx-as (a/admin) (n/site? (first (n/children (n/sites-home)))))
-    ))
+    )))
