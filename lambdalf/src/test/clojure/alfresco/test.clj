@@ -20,6 +20,8 @@
 
 (def lambdalf-url "http://localhost:9090/lambdalf-webapp")
 
+(defonce nrepl-started (atom false))
+
 (defn http-method
   "Resolves an HTTP method keyword such as :GET or :POST into its implementation fn. Input method is not case sensitive."
   [method]
@@ -39,6 +41,13 @@
 
 (defn start-nrepl []
   (call-wscript "/clojure/nrepl" :post))
+
+(defn ensure-nrepl
+  "Ensures NREPL start is invoked only once"
+  []
+  (when (not @nrepl-started)
+    (start-nrepl)
+    (reset! nrepl-started true)))
 
 ; copied from NREPL test sources
 (defmacro defftest

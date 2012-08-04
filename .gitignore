@@ -1,3 +1,6 @@
 go.sh
 startNRepl.sh
 reply.sh
+*.iml
+.idea
+target

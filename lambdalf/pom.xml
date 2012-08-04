@@ -78,10 +78,11 @@
 
 
     <build>
+<!--
         <filters>
             <filter>src/test/properties/${env}/alfresco-global.properties</filter>
         </filters>
-
+-->
         <plugins>
             <plugin>
                 <artifactId>maven-nosnapshot-plugin</artifactId>
@@ -244,6 +245,7 @@
                 <directory>src/main/config</directory>
                 <targetPath>alfresco/module/${project.groupId}.${project.artifactId}</targetPath>
             </resource>
+<!--
             <resource>
                 <filtering>true</filtering>
                 <directory>src/test/properties/${env}</directory>
@@ -251,6 +253,7 @@
                     <include>alfresco-global.properties</include>
                 </includes>
             </resource>
+-->
         </resources>
         <testResources>
             <!-- Includes default properties for alfresco test war -->

@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>Stops the NREPL server</shortname>
+  <description>Stops the NREPL server</description>
+  <url>/clojure/nrepl</url>
+  <format default="json">extension</format>
+  <authentication>user</authentication>
+  <family>lambdalf</family>
+</webscript>

@@ -22,9 +22,12 @@ This will start up a Clojure spiced version of an Alfresco repository you can co
 You can then start a [swank server](https://github.com/technomancy/swank-clojure) by calling the appropriate
 [web script](https://github.com/skuro/lambdalf/tree/master/lambdalf/src/main/resources/alfresco/templates/webscripts/clj):
 
-    $ curl -X POST -u admin:admin http://localhost:9090/lambdalf-webapp/service/swank
+    $ curl -X POST -u admin:admin http://localhost:9090/lambdalf-webapp/service/clojure/swank
 
 Currently the web script doesn't allow for choosing a port different from the default one: 4005.
+To stop the server, you can issue a similar HTTP call:
+
+    $ curl -X DELETE -u admin:admin http://localhost:9090/lambdalf-webapp/service/clojure/swank
 
 Sample code
 =====================
