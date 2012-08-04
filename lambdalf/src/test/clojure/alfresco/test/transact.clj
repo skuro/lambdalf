@@ -20,7 +20,7 @@
   (:require [clj-http.client :as http]))
 
 (defn init-fixture [f]
-  (start-nrepl)
+  (ensure-nrepl)
   (let [c (client (connect :port 7888) 1000)]
     (message c {:op :eval :code (code (require '[alfresco.auth :as a]))})
     (message c {:op :eval :code (code (require '[alfresco.nodes :as n]))})
@@ -34,7 +34,7 @@
     (are [result f expr] (= result (f (repl-eval client (code expr))))
 
          ; Run a simple clojure expression within an Alfresco txn
-         2 repl-value ((t/in-ro-tx-as (a/admin) (+ 1 1)))
+         2 repl-value (t/in-ro-tx-as (a/admin) (+ 1 1))
 
 
          ; Get the name of Company Home within an Alfresco txn

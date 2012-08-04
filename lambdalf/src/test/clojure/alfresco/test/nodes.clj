@@ -20,7 +20,7 @@
   (:require [clj-http.client :as http]))
 
 (defn init-fixture [f]
-  (start-nrepl)
+  (ensure-nrepl)
   (let [c (client (connect :port 7888) 1000)]
     (message c {:op :eval :code (code (require '[alfresco.auth :as a]))})
     (message c {:op :eval :code (code (require '[alfresco.nodes :as n]))})
