@@ -4,15 +4,15 @@
 ; Licensed under the Apache License, Version 2.0 (the "License");
 ; you may not use this file except in compliance with the License.
 ; You may obtain a copy of the License at
-; 
+;
 ;     http://www.apache.org/licenses/LICENSE-2.0
-;  
+;
 ; Unless required by applicable law or agreed to in writing, software
 ; distributed under the License is distributed on an "AS IS" BASIS,
 ; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ; See the License for the specific language governing permissions and
 ; limitations under the License.
- 
+
 (ns alfresco
   (:require [swank.swank])
   (:use [clojure.tools.nrepl.server :only (start-server stop-server)]))
@@ -27,11 +27,11 @@
   (swank.swank/stop-server))
 
 (defn stop-nrepl
-  "Stops the NREPL server. Waits by default 1s, provide a negative timeout to wait indefinitely."
+  "Stops the NREPL server. Waits by default 5s, provide a negative timeout to wait indefinitely."
   ([] (stop-nrepl @*nrepl-server*))
-  ([server] (stop-nrepl server 1000))
+  ([server] (stop-nrepl server 5000))
   ([server timeout]
-    (if (< 0 timeout)
+    (if (> 0 timeout)
       (await (stop-server server)))
       (await-for timeout (stop-server server))))
 
