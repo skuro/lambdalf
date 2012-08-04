@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>Stops the swank server</shortname>
+  <description>Stops the swank server</description>
+  <url>/clojure/swank</url>
+  <format default="json">extension</format>
+  <authentication>user</authentication>
+  <family>lambdalf</family>
+</webscript>
