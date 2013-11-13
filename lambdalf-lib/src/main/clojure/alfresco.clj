@@ -14,17 +14,18 @@
 ; limitations under the License.
 
 (ns alfresco
-  (:require [swank.swank])
+;  (:require [swank.swank])
   (:use [clojure.tools.nrepl.server :only (start-server stop-server)]))
 
 ; Hold a reference to the Swank server
-(def ^:dynamic *swank-server* (atom nil))
+; Note: swank has been discarded by its author and is not compatible with Clojure 1.5
+;(def ^:dynamic *swank-server* (atom nil))
 
 ; Hold a reference to the NREPL server
 (def ^:dynamic *nrepl-server* (atom nil))
 
-(defn stop-swank []
-  (swank.swank/stop-server))
+;(defn stop-swank []
+;  (swank.swank/stop-server))
 
 (defn stop-nrepl
   "Stops the NREPL server. Waits by default 5s, provide a negative timeout to wait indefinitely."
@@ -35,11 +36,11 @@
       (await (stop-server server)))
       (await-for timeout (stop-server server))))
 
-(defn- switch-swank
-  "Starts up the swank server. Server shutdown is currently not supported."
-  [current]
-  (when current (stop-swank))
-  (swank.swank/start-repl))
+;(defn- switch-swank
+;  "Starts up the swank server. Server shutdown is currently not supported."
+;  [current]
+;  (when current (stop-swank))
+;  (swank.swank/start-repl))
 
 (defn- switch-nrepl
   "Starts up the NREPL server. Server shutdown is currently not supported."
@@ -47,8 +48,8 @@
   (when current (stop-nrepl current))
   (start-server :port 7888))
 
-(defn start-swank []
-  (swap! *swank-server* switch-swank))
+;(defn start-swank []
+;  (swap! *swank-server* switch-swank))
 
 (defn start-nrepl []
   (swap! *nrepl-server* switch-nrepl))

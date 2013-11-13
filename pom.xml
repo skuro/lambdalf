@@ -65,14 +65,17 @@
     </modules>
 
     <properties>
-        <alfresco.version>4.0.d</alfresco.version>
+        <alfresco.version>4.2.e</alfresco.version>
         <spring.version>3.0.5.RELEASE</spring.version>
-        <spring.surf.version>1.0.0</spring.surf.version>
-        <clojure.version>1.4.0</clojure.version>
-        <surf.clojure.version>1.0-alpha1</surf.clojure.version>
+        <spring.surf.version>1.2.0</spring.surf.version>
+        <clojure.version>1.5.1</clojure.version>
+        <surf.clojure.version>1.0-SNAPSHOT</surf.clojure.version>
         <amp.plugin.version>3.0.4</amp.plugin.version>
+        <h2.version>1.3.158</h2.version>
         <alfresco.h2.version>1.2</alfresco.h2.version>
         <clojure.plugin.version>1.3.12</clojure.plugin.version>
+        <maven.jetty.version>6.1.26</maven.jetty.version>
+        <clj-http.version>0.7.7</clj-http.version>
     </properties>
 
     <repositories>

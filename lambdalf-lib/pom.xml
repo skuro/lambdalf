@@ -17,7 +17,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <swank-clojure.version>1.4.2</swank-clojure.version>   <!-- Note: latest version is 1.4.4, but it's not in clojars yet -->
-    <nrepl.version>0.2.0-beta10</nrepl.version>
+    <nrepl.version>0.2.3</nrepl.version>
   </properties>
 
   <build>
@@ -52,7 +52,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>2.4.3</version>
+        <version>2.6</version>
         <executions>
           <execution>
             <id>interop-genclass</id>
@@ -137,11 +137,13 @@
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
     </dependency>
+<!-- Swank has been orphaned, and isn't compatible with Clojure 1.5
     <dependency>
       <groupId>swank-clojure</groupId>
       <artifactId>swank-clojure</artifactId>
       <version>${swank-clojure.version}</version>
     </dependency>
+-->
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>tools.nrepl</artifactId>
@@ -214,11 +216,13 @@
       <version>3.0.4</version>
       <scope>provided</scope>
     </dependency>
+<!-- EHCache is no longer used in Alfresco
     <dependency>
       <groupId>net.sf.ehcache</groupId>
       <artifactId>ehcache-core</artifactId>
       <version>2.0.0</version>
       <scope>provided</scope>
     </dependency>
+-->
   </dependencies>
 </project>

@@ -63,7 +63,7 @@
         <dependency>
             <groupId>clj-http</groupId>
             <artifactId>clj-http</artifactId>
-            <version>0.4.3</version>
+            <version>${clj-http.version}</version>
             <scope>test</scope>
         </dependency>
         <!--
@@ -179,7 +179,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.26</version>
+                <version>${maven.jetty.version}</version>
                 <configuration>
                     <contextPath>/${webapp.name}</contextPath>
                     <webApp>${project.build.directory}/${webapp.name}</webApp>
@@ -200,7 +200,7 @@
                     <dependency>
                         <groupId>com.h2database</groupId>
                         <artifactId>h2</artifactId>
-                        <version>1.3.158</version>
+                        <version>${h2.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -243,7 +243,7 @@
             <resource>
                 <filtering>true</filtering>
                 <directory>src/main/config</directory>
-                <targetPath>alfresco/module/${groupId}.${artifactId}</targetPath>
+                <targetPath>alfresco/module/${project.groupId}.${project.artifactId}</targetPath>
             </resource>
 <!--
             <resource>
@@ -275,7 +275,7 @@
                 <includes>
                     <include>module.properties</include>
                 </includes>
-                <targetPath>alfresco/module/${groupId}.${artifactId}</targetPath>
+                <targetPath>alfresco/module/${project.groupId}.${project.artifactId}</targetPath>
             </testResource>
         </testResources>
     </build>
@@ -362,7 +362,7 @@
                     <plugin>
                         <groupId>org.mortbay.jetty</groupId>
                         <artifactId>maven-jetty-plugin</artifactId>
-                        <version>6.1.26</version>
+                        <version>${maven.jetty.version}</version>
                         <executions>
                             <!-- Runs jetty when 'integration-test' phase is called -->
                             <execution>
