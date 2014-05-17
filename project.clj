@@ -1,5 +1,6 @@
 ;
-; Copyright © 2013,2014 Carlo Sciolla
+; Copyright © 2011-2014 Carlo Sciolla
+; This fork has been developed by Peter Monks (pmonks@gmail.com).
 ;
 ; Licensed under the Apache License, Version 2.0 (the "License");
 ; you may not use this file except in compliance with the License.
