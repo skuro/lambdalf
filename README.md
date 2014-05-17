@@ -15,7 +15,7 @@ This library adds [Clojure](http://www.clojure.org/) support to the open source
  * provides support for implementing Alfresco extension points in Clojure, including
    [behaviours](https://github.com/pmonks/lambdalf/blob/master/src/clojure/alfresco/behave.clj), and
    web scripts (via [clojure-webscripts ](https://github.com/skuro/spring-webscripts-addon-clojure))
- * adds NREPL and SWANK servers to the Alfresco system (disabled by default - requires administor rights to enable), allowing for
+ * adds NREPL and SWANK servers to the Alfresco system (disabled by default - requires administrator rights to enable), allowing for
    productive REPL-style experimentation and development in Alfresco
  * packages all of this, along with the Clojure runtime, into an [Alfresco Module Package](http://wiki.alfresco.com/wiki/AMP_Files)
    that 3rd party code can depend on (thereby avoiding conflicts between different Clojure extensions)
