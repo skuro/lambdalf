@@ -27,8 +27,9 @@
                   ["alfresco.public" "https://artifacts.alfresco.com/nexus/content/groups/public/"]
                 ]
   :dependencies [
-                  [org.clojure/clojure     "1.6.0"]
-                  [org.clojure/tools.nrepl "0.2.3"]
+                  [org.clojure/clojure                                          "1.6.0"]
+                  [org.clojure/tools.nrepl                                      "0.2.3"]
+                  [tk.skuro.spring.surf.clojure/spring-webscripts-addon-clojure "1.0-SNAPSHOT"]
                 ]
   :profiles {:dev      { :plugins [[lein-amp "0.1.0-SNAPSHOT"]] }
              :uberjar  { :aot :all }
