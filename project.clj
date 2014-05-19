@@ -19,10 +19,11 @@
 ;    Peter Monks   - contributor
 
 (defproject org.clojars.pmonks/lambdalf "2.0.0-SNAPSHOT"
+  :title            "lambdalf"
   :description      "Lambdalf -- Clojure support for Alfresco"
   :url              "https://github.com/pmonks/lambdalf"
-  :license          {:name "Apache License, Version 2.0"
-                     :url "http://www.apache.org/licenses/LICENSE-2.0"}
+  :license          { :name "Apache License, Version 2.0"
+                      :url "http://www.apache.org/licenses/LICENSE-2.0" }
   :min-lein-version "2.0.0"
   :repositories [
                   ["alfresco.public" "https://artifacts.alfresco.com/nexus/content/groups/public/"]
@@ -32,7 +33,7 @@
                   [org.clojure/tools.nrepl                                      "0.2.3"]
                   [tk.skuro.spring.surf.clojure/spring-webscripts-addon-clojure "1.0-SNAPSHOT"]
                 ]
-  :profiles {:dev      { :plugins [[lein-amp "0.1.0-SNAPSHOT"]] }
+  :profiles {:dev      { :plugins [[lein-amp "0.1.0"]] }
              :uberjar  { :aot :all }
              :provided { :dependencies [
                                          [org.alfresco/alfresco-core                            "4.2.f"         :scope "runtime"]
