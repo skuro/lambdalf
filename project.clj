@@ -24,14 +24,13 @@
   :url              "https://github.com/pmonks/lambdalf"
   :license          { :name "Apache License, Version 2.0"
                       :url "http://www.apache.org/licenses/LICENSE-2.0" }
-  :min-lein-version "2.0.0"
+  :min-lein-version "2.4.0"
   :repositories [
                   ["alfresco.public" "https://artifacts.alfresco.com/nexus/content/groups/public/"]
                 ]
   :dependencies [
-                  [org.clojure/clojure                                          "1.6.0"]
-                  [org.clojure/tools.nrepl                                      "0.2.3"]
-                  [tk.skuro.spring.surf.clojure/spring-webscripts-addon-clojure "1.0-SNAPSHOT"]
+                  [org.clojure/clojure     "1.6.0"]
+                  [org.clojure/tools.nrepl "0.2.3"]
                 ]
   :profiles {:dev      { :plugins [[lein-amp "0.1.0"]] }
              :uberjar  { :aot :all }
@@ -46,8 +45,8 @@
                                          [org.springframework.extensions.surf/spring-webscripts "1.2.0"         :scope "runtime"]
                                        ] }
             }
-  :uberjar-merge-with {#"META-INF/services/.*" [slurp str spit]}   ; Awaiting Leiningen 2.3.5 - see https://github.com/technomancy/leiningen/issues/1455
   :source-paths      ["src/clojure"]
   :java-source-paths ["src/java"]
+  :resource-paths    ["src/resource"]
   :javac-target      "1.6"
   )
