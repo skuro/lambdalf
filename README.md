@@ -14,9 +14,9 @@ This library adds [Clojure](http://www.clojure.org/) support to the open source
  * adds an idiomatic Clojure wrapper around (an increasing %age of) the [Alfresco Java API](http://wiki.alfresco.com/wiki/Java_Foundation_API)
  * provides support for implementing Alfresco extension points in Clojure, including
    [behaviours](https://github.com/pmonks/lambdalf/blob/master/src/clojure/alfresco/behave.clj), and
-   web scripts (via [clojure-webscripts ](https://github.com/skuro/spring-webscripts-addon-clojure))
- * adds NREPL and SWANK servers to the Alfresco system (disabled by default - requires administrator rights to enable), allowing for
-   productive REPL-style experimentation and development in Alfresco
+   [web scripts](https://github.com/pmonks/lambdalf/blob/master/src/clojure/spring/surf/webscript.clj)
+ * adds an NREPL server to the Alfresco server (disabled by default - requires administrator rights to enable),
+   allowing for productive REPL-style experimentation and development within Alfresco
  * packages all of this, along with the Clojure runtime, into an [Alfresco Module Package](http://wiki.alfresco.com/wiki/AMP_Files)
    that 3rd party code can depend on (thereby avoiding conflicts between different Clojure extensions)
 
@@ -68,9 +68,9 @@ Home `nodeRef`, and that you don't need to close any `ResultSet` after you query
 ```
 
 ## Packaging
-Due to the way Alfresco's AMP module mechanism works, lambdalf is shipped as an AMP file (####TODO: add link to release,
-once available) in addition to the clojars artifacts (which are intended for compilation only).  It is this AMP artifact that
-should be deployed to a running Alfresco server, prior to deployment of your own AMP.
+Due to the way Alfresco's AMP module mechanism works, lambdalf is shipped as an [AMP file](http://wiki.alfresco.com/wiki/AMP_Files)
+in addition to the clojars artifacts (which are only useful for compilation).  It is this AMP artifact that
+should be deployed to a running Alfresco server, prior to the deployment of your own AMP.
 
 Your code should also be packaged as an AMP (via the [lein amp](https://github.com/pmonks/lein-amp) plugin), and must include
 a module dependency on lambdalf in order to prevent an Alfresco user from inadvertently deploying your code without first deploying
