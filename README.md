@@ -38,8 +38,8 @@ AVAILABLE!), then install it just like any other AMP (i.e. using Alfresco's
 
 ### Opening a REPL
 
-For security reasons (<span style="color:red">i.e. it opens a massive script injection attack hole!</span>) the nREPL server included in lambdalf is
-not running by default. To enable it (<span style="color:red">keeping in mind that it opens a massive script injection attack hole!</span>) an
+For security reasons (i.e. *it opens a massive script injection attack hole!*) the nREPL server included in lambdalf is
+not running by default. To enable it (*keeping in mind that it opens a massive script injection attack hole!*) an
 administrator-only HTTP POST Web Script is provided at `/alfresco/service/clojure/nrepl`. For a default installation
 of Alfresco on localhost, you can run:
 
