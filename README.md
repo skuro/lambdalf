@@ -53,6 +53,12 @@ use leiningen's built-in NREPL client to connect to this NREPL:
 
 See below for some example expressions to run to validate the installation.
 
+To disable the NREPL server, you may issue an HTTP DELETE to the same Web Script.
+
+```shell 
+    $ curl -u admin:admin -X DELETE http://localhost:8080/alfresco/service/clojure/nrepl
+```
+
 ## Developing with lambdalf
 
 lambdalf is (NOT YET!) available as a Maven artifact from [Clojars](https://clojars.org/org.clojars.pmonks/lambdalf).
