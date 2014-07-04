@@ -20,6 +20,39 @@ This library adds [Clojure](http://www.clojure.org/) support to the open source
  * packages all of this, along with the Clojure runtime, into an [Alfresco Module Package](http://wiki.alfresco.com/wiki/AMP_Files)
    that 3rd party code can depend on (thereby avoiding conflicts between different Clojure extensions)
 
+## Packaging
+Due to the way Alfresco's AMP module mechanism works, lambdalf is shipped as an [AMP file](http://wiki.alfresco.com/wiki/AMP_Files)
+in addition to the clojars artifacts (which are used for development only).  It is this AMP artifact that should be deployed to a
+running Alfresco server, prior to the deployment of your own AMP.
+
+Your code should also be packaged as an AMP (via the [lein amp plugin](https://github.com/pmonks/lein-amp)), and must include
+a module dependency on lambdalf in order to prevent an Alfresco administrator from inadvertently deploying your code without first deploying
+lambdalf. In the near future the lein-amp template should [set these dependencies up automatically](https://github.com/mstang/alfresco-amp-template/issues/1).
+
+## Installing lambdalf into Alfresco
+
+Download the latest [AMP file](http://wiki.alfresco.com/wiki/AMP_Files) from the [releases page](https://github.com/pmonks/lambdalf/releases)
+(NOT YET AVAILABLE!), then install it just like any other AMP (i.e. using Alfresco's [MMT tool](https://wiki.alfresco.com/wiki/Module_Management_Tool)).
+
+### Opening a REPL
+
+For security reasons (i.e. it opens a massive script injection attack hole!) the NREPL server included in lambdalf is not running by default.
+To enable it (keeping in mind that it opens a massive script injection attack hole!) an HTTP POST Web Script is provided at
+/alfresco/service/clojure/nrepl. For a default installation of Alfresco on localhost, you can run:
+
+```shell 
+    $ curl -u admin:admin -X POST http://localhost:8080/alfresco/service/clojure/nrepl
+```
+
+to enable the NREPL server.  The Web Script will respond with the port that the NREPL server is running on (default is 7888).  From there you can
+use leiningen's built-in NREPL client to connect to this NREPL:
+
+```shell
+    $ lein repl :connect 7888
+```
+
+See below for some example expressions to run to validate the installation.
+
 ## Developing with lambdalf
 
 lambdalf is (NOT YET!) available as a Maven artifact from [Clojars](https://clojars.org/org.clojars.pmonks/lambdalf).
@@ -35,7 +68,7 @@ The latest version is:
 
 Here's some sample code from an NREPL session connected to a running Alfresco repository. Note that there are
 [better ways](https://github.com/pmonks/lambdalf/blob/master/src/clojure/alfresco/nodes.clj#L65) to get a handle to the Company
-Home `nodeRef`, and that you don't need to close any `ResultSet` after you query!
+Home `nodeRef`.  Note also that unlike Alfresco's native Java API, each `ResultSet` is automatically closed after a search.
 
 ```
     user> (require '[alfresco.auth :as a])
@@ -66,15 +99,6 @@ Home `nodeRef`, and that you don't need to close any `ResultSet` after you query
      "cm:creator" "System"}
     nil
 ```
-
-## Packaging
-Due to the way Alfresco's AMP module mechanism works, lambdalf is shipped as an [AMP file](http://wiki.alfresco.com/wiki/AMP_Files)
-in addition to the clojars artifacts (which are only useful for compilation).  It is this AMP artifact that
-should be deployed to a running Alfresco server, prior to the deployment of your own AMP.
-
-Your code should also be packaged as an AMP (via the [lein amp](https://github.com/pmonks/lein-amp) plugin), and must include
-a module dependency on lambdalf in order to prevent an Alfresco user from inadvertently deploying your code without first deploying
-lambdalf. In the near future the lein-amp plugin should [handle this automatically](https://github.com/pmonks/lein-amp/issues/2).
 
 ## Developer Information
 
