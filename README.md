@@ -37,15 +37,15 @@ Download the latest [AMP file](http://wiki.alfresco.com/wiki/AMP_Files) from the
 ### Opening a REPL
 
 For security reasons (i.e. it opens a massive script injection attack hole!) the NREPL server included in lambdalf is not running by default.
-To enable it (keeping in mind that it opens a massive script injection attack hole!) an HTTP POST Web Script is provided at
+To enable it (keeping in mind that it opens a massive script injection attack hole!) an administrator-only HTTP POST Web Script is provided at
 /alfresco/service/clojure/nrepl. For a default installation of Alfresco on localhost, you can run:
 
 ```shell 
     $ curl -u admin:admin -X POST http://localhost:8080/alfresco/service/clojure/nrepl
 ```
 
-to enable the NREPL server.  The Web Script will respond with the port that the NREPL server is running on (default is 7888).  From there you can
-use leiningen's built-in NREPL client to connect to this NREPL:
+to enable the NREPL server.  The Web Script's JSON response includes the port that the NREPL server is running on (default is 7888).  From there
+you can use leiningen's built-in NREPL client to connect to the NREPL server:
 
 ```shell
     $ lein repl :connect 7888
