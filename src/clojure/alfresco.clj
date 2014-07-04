@@ -14,49 +14,45 @@
 ; limitations under the License.
 
 (ns alfresco
-;  (:require [swank.swank])
-  (:use [clojure.tools.nrepl.server :only (start-server stop-server)]))
-
-; Hold a reference to the Swank server
-; Note: swank has been discarded by its author and is not compatible with Clojure 1.5
-;(def ^:dynamic *swank-server* (atom nil))
+  (:require [clojure.tools.nrepl.server :as nrepl]))
 
 ; Hold a reference to the NREPL server
-(def ^:dynamic *nrepl-server* (atom nil))
+(def ^:private *nrepl-server* (atom nil))
 
-;(defn stop-swank []
-;  (swank.swank/stop-server))
+(defn nrepl-running?
+  "Is the nREPL server running?"
+  ([] (nrepl-running? @*nrepl-server*))
+  ([nrepl-server]
+    (not (nil? nrepl-server))))
 
-(defn stop-nrepl
-  "Stops the NREPL server. Waits by default 5s, provide a negative timeout to wait indefinitely."
-  ([] (stop-nrepl @*nrepl-server*))
-  ([server] (stop-nrepl server 5000))
-  ([server timeout]
-    (if (> 0 timeout)
-      (await (stop-server server)))
-      (await-for timeout (stop-server server))))
+(defn stop-nrepl!
+  "Stops the nREPL server. Returns nil."
+  ([] (stop-nrepl! @*nrepl-server*))
+  ([nrepl-server]
+    (if (nrepl-running?)
+      (nrepl/stop-server nrepl-server))
+    (reset! *nrepl-server* nil)
+    nil))
 
-;(defn- switch-swank
-;  "Starts up the swank server. Server shutdown is currently not supported."
-;  [current]
-;  (when current (stop-swank))
-;  (swank.swank/start-repl))
+(defn- restart-nrepl!
+  "Restarts (stops if necessary, then starts) an nREPL server on the given port, returning the server object.
+   Intended to be called by clojure.core/swap!."
+  ([nrepl-server] (restart-nrepl! nrepl-server 7888))
+  ([nrepl-server port]
+    (if (nrepl-running? nrepl-server)
+      (stop-nrepl! nrepl-server))
+    (nrepl/start-server :port port)))
 
-(defn- switch-nrepl
-  "Starts up the NREPL server. Server shutdown is currently not supported."
-  [current]
-  (when current (stop-nrepl current))
-  (start-server :port 7888))
-
-;(defn start-swank []
-;  (swap! *swank-server* switch-swank))
-
-(defn start-nrepl []
-  (swap! *nrepl-server* switch-nrepl))
+(defn start-nrepl!
+  "Starts up an nREPL server, returning the port it's running on."
+  ([] (start-nrepl! 7888))
+  ([port]
+    (swap! *nrepl-server* restart-nrepl! port)
+    port))
 
 ; Other Clojure gobbledygook
-(gen-class :name alfresco.interop.ClojureInit
-           :prefix "ci-"
+(gen-class :name    alfresco.interop.ClojureInit
+           :prefix  "ci-"
            :methods [[setNamespaces [java.util.List] void]])
 
 (defn load-ns

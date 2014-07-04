@@ -1,14 +1,12 @@
-(ns lambdalf.webscript.swank
+(ns lambdalf.webscript.nrepl
   (:require [spring.surf.webscript :as w]
             [alfresco :as a])
   (:import [spring.surf.webscript WebScript]))
 
-(deftype SwankWebScript
+(deftype NreplStatusWebScript
   []
   WebScript
   (run [this in out model]
-    (a/start-swank)
-    (w/return model {:swank "OK"
-                     :port "4005"})))
+    (w/return model {:status (if (a/nrepl-running?) "Started" "Stopped")})))
 
-(SwankWebScript.)
+(NreplStatusWebScript.)

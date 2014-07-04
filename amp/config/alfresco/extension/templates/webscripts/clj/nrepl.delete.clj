@@ -3,12 +3,11 @@
             [alfresco :as a])
   (:import [spring.surf.webscript WebScript]))
 
-(deftype NreplWebScript
+(deftype NreplStopWebScript
   []
   WebScript
   (run [this in out model]
-    (a/start-nrepl)
-    (w/return model {:nrepl "OK"
-                     :port "7888"})))
+    (a/stop-nrepl!)
+    (w/return model {:status "stopped"})))
 
-(NreplWebScript.)
+(NreplStopWebScript.)

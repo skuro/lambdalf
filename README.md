@@ -15,7 +15,7 @@ This library adds [Clojure](http://www.clojure.org/) support to the open source
  * provides support for implementing Alfresco extension points in Clojure, including
    [behaviours](https://github.com/pmonks/lambdalf/blob/master/src/clojure/alfresco/behave.clj), and
    [web scripts](https://github.com/pmonks/lambdalf/blob/master/src/clojure/spring/surf/webscript.clj)
- * adds an NREPL server to the Alfresco server (disabled by default - requires administrator rights to enable),
+ * adds an nREPL server to the Alfresco server (disabled by default - requires administrator rights to enable),
    allowing for productive REPL-style experimentation and development within Alfresco
  * packages all of this, along with the Clojure runtime, into an [Alfresco Module Package](http://wiki.alfresco.com/wiki/AMP_Files)
    that 3rd party code can depend on (thereby avoiding conflicts between different Clojure extensions)
@@ -36,7 +36,7 @@ Download the latest [AMP file](http://wiki.alfresco.com/wiki/AMP_Files) from the
 
 ### Opening a REPL
 
-For security reasons (i.e. it opens a massive script injection attack hole!) the NREPL server included in lambdalf is not running by default.
+For security reasons (i.e. it opens a massive script injection attack hole!) the nREPL server included in lambdalf is not running by default.
 To enable it (keeping in mind that it opens a massive script injection attack hole!) an administrator-only HTTP POST Web Script is provided at
 `/alfresco/service/clojure/nrepl`. For a default installation of Alfresco on localhost, you can run:
 
@@ -44,8 +44,8 @@ To enable it (keeping in mind that it opens a massive script injection attack ho
     $ curl -u admin:admin -X POST http://localhost:8080/alfresco/service/clojure/nrepl
 ```
 
-to enable the NREPL server.  The Web Script's JSON response includes the port that the NREPL server is running on (default is 7888).  From there
-you can use leiningen's built-in NREPL client to connect to the NREPL server:
+to enable the nREPL server.  The Web Script's JSON response includes the port that the nREPL server is running on (default is 7888).  From there
+you can use leiningen's built-in nREPL client to connect to the nREPL server:
 
 ```shell
     $ lein repl :connect 7888
@@ -53,10 +53,16 @@ you can use leiningen's built-in NREPL client to connect to the NREPL server:
 
 See below for some example expressions to run to validate the installation.
 
-To disable the NREPL server, you may issue an HTTP DELETE to the same Web Script.
+To disable the nREPL server, you may issue an HTTP DELETE to the same Web Script:
 
 ```shell 
     $ curl -u admin:admin -X DELETE http://localhost:8080/alfresco/service/clojure/nrepl
+```
+
+You may also query the status of the nREPL server via an HTTP GET:
+
+```shell 
+    $ curl -u admin:admin http://localhost:8080/alfresco/service/clojure/nrepl
 ```
 
 ## Developing with lambdalf
@@ -72,7 +78,7 @@ The latest version is:
 
 [![version](https://clojars.org/org.clojars.pmonks/lambdalf/latest-version.svg)](https://clojars.org/org.clojars.pmonks/lambdalf)
 
-Here's some sample code from an NREPL session connected to a running Alfresco repository. Note that there are
+Here's some sample code from an nREPL session connected to a running Alfresco repository. Note that there are
 [better ways](https://github.com/pmonks/lambdalf/blob/master/src/clojure/alfresco/nodes.clj#L65) to get a handle to the Company
 Home `nodeRef`.  Note also that unlike Alfresco's native Java API, each `ResultSet` is automatically closed after a search.
 
