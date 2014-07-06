@@ -1,4 +1,3 @@
-
 # Lambdalf -- Clojure support for Alfresco
 
 ----
@@ -14,7 +13,7 @@ This library adds [Clojure](http://www.clojure.org/) support to the open source
  * adds an idiomatic Clojure wrapper around (an increasing %age of) the [Alfresco Java API](http://wiki.alfresco.com/wiki/Java_Foundation_API)
  * provides support for implementing Alfresco extension points in Clojure, including
    [behaviours](https://github.com/pmonks/lambdalf/blob/master/src/clojure/alfresco/behave.clj), and
-   [web scripts](https://github.com/pmonks/lambdalf/blob/master/src/clojure/spring/surf/webscript.clj)
+   [web scripts](https://github.com/lambdalf/lambdalf/blob/master/src/clojure/spring/surf/webscript.clj)
  * adds an nREPL server to the Alfresco server (disabled by default - requires administrator rights to enable),
    allowing for productive REPL-style experimentation and development within Alfresco
  * packages all of this, along with the Clojure runtime, into an [Alfresco Module Package](http://wiki.alfresco.com/wiki/AMP_Files)
@@ -32,7 +31,7 @@ dependencies up automatically](https://github.com/mstang/alfresco-amp-template/i
 
 ## Installing lambdalf into Alfresco
 
-Download the latest lambdalf AMP file from the [releases page](https://github.com/pmonks/lambdalf/releases) (NOT YET
+Download the latest lambdalf AMP file from the [releases page](https://github.com/lambdalf/lambdalf/releases) (NOT YET
 AVAILABLE!), then install it just like any other AMP (i.e. using Alfresco's
 [MMT tool](https://wiki.alfresco.com/wiki/Module_Management_Tool)).
 
@@ -43,7 +42,7 @@ not running by default. To enable it (**keeping in mind that it opens a massive 
 administrator-only HTTP POST Web Script is provided at `/alfresco/service/clojure/nrepl`. For a default installation
 of Alfresco on localhost, you can run:
 
-```shell 
+```shell
     $ curl -u admin:admin -X POST http://localhost:8080/alfresco/service/clojure/nrepl
 ```
 
@@ -59,31 +58,31 @@ itself a good sign that everything's hunky dory).
 
 To disable the nREPL server, you may issue an HTTP DELETE to the same Web Script:
 
-```shell 
+```shell
     $ curl -u admin:admin -X DELETE http://localhost:8080/alfresco/service/clojure/nrepl
 ```
 
 You may also query the status of the nREPL server via an HTTP GET:
 
-```shell 
+```shell
     $ curl -u admin:admin http://localhost:8080/alfresco/service/clojure/nrepl
 ```
 
 ## Developing with lambdalf
 
-lambdalf is (NOT YET!) available as a Maven artifact from [Clojars](https://clojars.org/org.clojars.pmonks/lambdalf).
+lambdalf is (NOT YET!) available as a Maven artifact from [Clojars](https://clojars.org/org.clojars.lambdalf/lambdalf).
 Plonk the following in your project.clj :plugins, `lein deps` and you should be good to go:
 
 ```clojure
-[org.clojars.pmonks/lambdalf "#.#.#"]
+[org.clojars.lambdalf/lambdalf "#.#.#"]
 ```
 
 The latest version is:
 
-[![version](https://clojars.org/org.clojars.pmonks/lambdalf/latest-version.svg)](https://clojars.org/org.clojars.pmonks/lambdalf)
+[![version](https://clojars.org/org.clojars.lambdalf/lambdalf/latest-version.svg)](https://clojars.org/org.clojars.lambdalf/lambdalf)
 
 Here's some sample code from an nREPL session connected to a running Alfresco repository. Note that there are
-[better ways](https://github.com/pmonks/lambdalf/blob/master/src/clojure/alfresco/nodes.clj#L65) to get a handle to the Company
+[better ways](https://github.com/lambdalf/lambdalf/blob/master/src/clojure/alfresco/nodes.clj#L65) to get a handle to the Company
 Home `nodeRef`.  Note also that unlike Alfresco's native Java API, each `ResultSet` is automatically closed after a search.
 
 ```
@@ -118,15 +117,13 @@ Home `nodeRef`.  Note also that unlike Alfresco's native Java API, each `ResultS
 
 ## Developer Information
 
-[GitHub project](https://github.com/pmonks/lambdalf)
+[GitHub project](https://github.com/lambdalf/lambdalf)
 
-[Bug Tracker](https://github.com/pmonks/lambdalf/issues)
+[Bug Tracker](https://github.com/lambdalf/lambdalf/issues)
 
 ## License
 
 Copyright © 2011-2014 Carlo Sciolla
-
-This fork is maintained by Peter Monks (pmonks@gmail.com).
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
