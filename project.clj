@@ -1,6 +1,5 @@
 ;
 ; Copyright © 2011-2014 Carlo Sciolla
-; This fork is maintained by Peter Monks (pmonks@gmail.com).
 ;
 ; Licensed under the Apache License, Version 2.0 (the "License");
 ; you may not use this file except in compliance with the License.
@@ -18,10 +17,10 @@
 ;    Carlo Sciolla - initial implementation
 ;    Peter Monks   - contributor
 
-(defproject org.clojars.pmonks/lambdalf "2.0.0-SNAPSHOT"
+(defproject org.clojars.lambdalf/lambdalf "2.0.0-SNAPSHOT"
   :title            "lambdalf"
   :description      "Lambdalf -- Clojure support for Alfresco"
-  :url              "https://github.com/pmonks/lambdalf"
+  :url              "https://github.com/lambdalf/lambdalf"
   :license          { :name "Apache License, Version 2.0"
                       :url "http://www.apache.org/licenses/LICENSE-2.0" }
   :min-lein-version "2.4.0"
