@@ -1,8 +1,0 @@
-<webscript>
-  <shortname>Get nREPL server status</shortname>
-  <description>Returns the status of the nREPL server</description>
-  <url>/clojure/nrepl</url>
-  <format default="json">any</format>
-  <authentication>admin</authentication>
-  <family>lambdalf</family>
-</webscript>

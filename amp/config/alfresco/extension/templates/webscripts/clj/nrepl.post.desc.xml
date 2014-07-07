@@ -1,8 +1,0 @@
-<webscript>
-  <shortname>Start nREPL server</shortname>
-  <description>Starts the NREPL server</description>
-  <url>/clojure/nrepl</url>
-  <format default="json">any</format>
-  <authentication>admin</authentication>
-  <family>lambdalf</family>
-</webscript>
